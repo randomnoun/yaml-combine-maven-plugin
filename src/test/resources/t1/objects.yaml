@@ -1,0 +1,30 @@
+definitions:
+  ThingObject:
+    title: thing
+    description: |
+      A thing which you're manipulating via an API
+    type: object
+    required:
+      - visibility
+      - name
+      - thingType
+    properties:
+      id:
+        description: the thing identifier, in the form t-xxxxxx.
+        type: string
+        example: "t-12345"
+      userId:
+        description: the owner / creator of this thing, in the form u-xxxxxx.
+        type: string
+        example: "u-12345"
+      name:
+        description: the name of the thing
+        type: string
+        example: "Name"
+      description:
+        description: a longer description of the thing
+        type: string
+        example: "Description"
+      thingType:
+        description: thing type
+        $ref: "enums.yaml#/definitions/ThingTypeEnum"

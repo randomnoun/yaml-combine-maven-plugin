@@ -1,0 +1,16 @@
+paths:
+  /thing:
+    get:
+      # hashes in the path toggle between '/'-as-JSON-Pointer separators 
+      # and '/' as characters in the key
+      $xref: 'paths.yaml#/paths/#/thing#/get'
+
+    post:
+      # objects defined by xref can have other fields defined 
+      # which are merged in with the xref'ed object
+      $xref: 'paths.yaml#/paths/#/thing#/post'
+      parameters:
+        old-parameter:
+          description: some old parameter whose definition has changed
+        new-parameter: 
+          description: the new parameter in v2 of the API that isn't in v1

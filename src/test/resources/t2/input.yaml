@@ -1,0 +1,9 @@
+paths:
+  /thing:
+    get:
+      # hashes in the path toggle between '/'-as-JSON-Pointer separators 
+      # and '/' as characters in the key
+      $xref: 'paths.yaml#/paths/#/thing#/get'    
+
+    post:
+      $xref: 'paths-v2.yaml#/paths/#/thing#/post'

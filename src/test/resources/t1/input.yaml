@@ -1,0 +1,7 @@
+paths:
+  /thing:
+    get:
+      # acts like a $ref but in a place where $refs aren't allowed
+      $xref: 'paths.yaml#/paths/~1thing/get'     
+    post:
+      $xref: 'paths-v2.yaml#/paths/~1thing/post'
