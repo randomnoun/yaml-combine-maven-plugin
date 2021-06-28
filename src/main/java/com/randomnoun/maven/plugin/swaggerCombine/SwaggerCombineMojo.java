@@ -1,7 +1,9 @@
 package com.randomnoun.maven.plugin.swaggerCombine;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
@@ -233,10 +235,12 @@ public class SwaggerCombineMojo
         try {
             SwaggerCombiner sc = new SwaggerCombiner();
             sc.setRelativeDir(new File(fileset.getDirectory()));
-            sc.setDestFile(destFile);
             sc.setFiles(files);
             sc.setLog(getLog());
-            sc.combine();
+    		FileOutputStream fos = new FileOutputStream(destFile);
+    		PrintWriter w = new PrintWriter(fos);
+            sc.combine(w);
+            fos.close();
        } catch (IOException ioe) {
     	   throw new MojoExecutionException("Could not create combined swagger file", ioe); // trouble at the mill
        }

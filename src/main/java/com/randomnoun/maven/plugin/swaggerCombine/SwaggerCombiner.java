@@ -2,11 +2,10 @@ package com.randomnoun.maven.plugin.swaggerCombine;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
@@ -24,7 +23,6 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 public class SwaggerCombiner {
 
 	File relativeDir;
-	File destFile;
 	String[] files;
 	boolean verbose;
 	Log log;
@@ -32,7 +30,7 @@ public class SwaggerCombiner {
     private Map<String, Map<String, Object>> yamlFiles = new HashMap<String, Map<String, Object>>();
 	
 	@SuppressWarnings("unchecked")
-	public void combine() throws IOException {
+	public void combine(Writer w) throws IOException {
         
     	Yaml yaml = new Yaml();
    	   	@SuppressWarnings("rawtypes")
@@ -53,19 +51,13 @@ public class SwaggerCombiner {
 	    // this is definitely a constructive use of my weekend
 		replaceRefs((Map<Object, Object>) mergedObj, relativeDir, "");
 	    
-		FileOutputStream fos = new FileOutputStream(destFile);
-		PrintWriter w = new PrintWriter(fos);
-		// w.println("# " + f);
         final ObjectMapper mapper = new ObjectMapper(new YAMLFactory()
         	.configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)
             .configure(YAMLGenerator.Feature.SPLIT_LINES, false)
             .configure(YAMLGenerator.Feature.ALWAYS_QUOTE_NUMBERS_AS_STRINGS, true));
         configureMapper(mapper);
         mapper.writeValue(w, mergedObj);
-       
 		w.flush();
-		fos.close();
-		
 	}
 
 
@@ -278,36 +270,17 @@ public class SwaggerCombiner {
         */
     }
 
-    
 	public File getRelativeDir() {
 		return relativeDir;
 	}
-
-
 
 	public void setRelativeDir(File relativeDir) {
 		this.relativeDir = relativeDir;
 	}
 
-
-
-	public File getDestFile() {
-		return destFile;
-	}
-
-
-
-	public void setDestFile(File destFile) {
-		this.destFile = destFile;
-	}
-
-
-
 	public String[] getFiles() {
 		return files;
 	}
-
-
 
 	public void setFiles(String[] files) {
 		this.files = files;
@@ -317,25 +290,16 @@ public class SwaggerCombiner {
 		return verbose;
 	}
 
-
-
 	public void setVerbose(boolean verbose) {
 		this.verbose = verbose;
 	}
-
-
 
 	public Log getLog() {
 		return log;
 	}
 
-
-
 	public void setLog(Log log) {
 		this.log = log;
 	}
-
-
-
 	
 }

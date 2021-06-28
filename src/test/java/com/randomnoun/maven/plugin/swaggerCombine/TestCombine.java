@@ -2,15 +2,17 @@ package com.randomnoun.maven.plugin.swaggerCombine;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
-
-import junit.framework.Assert;
-import junit.framework.TestCase;
 
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
+
+import junit.framework.Assert;
+import junit.framework.TestCase;
 
 public class TestCombine extends  TestCase {
 
@@ -22,16 +24,16 @@ public class TestCombine extends  TestCase {
 
 		SwaggerCombiner sc = new SwaggerCombiner();
         sc.setRelativeDir(new File("src/test/resources/t1"));
-        sc.setDestFile(new File("target/t1-output.yaml"));
         sc.setFiles(new String[] { "input.yaml" });
         sc.setLog(log);
-        sc.combine();
+        
+		StringWriter w = new StringWriter();
+        sc.combine(w);
 
         Path expectedPath = new File("src/test/resources/t1/expected-output.yaml").toPath();
         List<String> expectedLines = Files.readAllLines(expectedPath);
         
-        Path p = new File("target/t1-output.yaml").toPath();
-        List<String> lines = Files.readAllLines(p);
+        List<String> lines = Arrays.asList(w.toString().split("\n"));
 
         Assert.assertEquals(expectedLines, lines);
 	}
@@ -43,16 +45,16 @@ public class TestCombine extends  TestCase {
 
 		SwaggerCombiner sc = new SwaggerCombiner();
         sc.setRelativeDir(new File("src/test/resources/t2"));
-        sc.setDestFile(new File("target/t2-output.yaml"));
         sc.setFiles(new String[] { "input.yaml" });
         sc.setLog(log);
-        sc.combine();
+        
+		StringWriter w = new StringWriter();
+        sc.combine(w);
 
         Path expectedPath = new File("src/test/resources/t2/expected-output.yaml").toPath();
         List<String> expectedLines = Files.readAllLines(expectedPath);
         
-        Path p = new File("target/t2-output.yaml").toPath();
-        List<String> lines = Files.readAllLines(p);
+        List<String> lines = Arrays.asList(w.toString().split("\n"));
 
         Assert.assertEquals(expectedLines, lines);
 	}
@@ -63,17 +65,17 @@ public class TestCombine extends  TestCase {
 
 		SwaggerCombiner sc = new SwaggerCombiner();
         sc.setRelativeDir(new File("src/test/resources/t3"));
-        sc.setDestFile(new File("target/t3-output.yaml"));
         sc.setFiles(new String[] { "input.yaml" });
         // sc.setVerbose(true);
         sc.setLog(log);
-        sc.combine();
+
+        StringWriter w = new StringWriter();
+        sc.combine(w);
 
         Path expectedPath = new File("src/test/resources/t3/expected-output.yaml").toPath();
         List<String> expectedLines = Files.readAllLines(expectedPath);
         
-        Path p = new File("target/t3-output.yaml").toPath();
-        List<String> lines = Files.readAllLines(p);
+        List<String> lines = Arrays.asList(w.toString().split("\n"));
         
         Assert.assertEquals(expectedLines, lines);
 	}
@@ -84,17 +86,18 @@ public class TestCombine extends  TestCase {
 
 		SwaggerCombiner sc = new SwaggerCombiner();
         sc.setRelativeDir(new File("src/test/resources/t4"));
-        sc.setDestFile(new File("target/t4-output.yaml"));
         sc.setFiles(new String[] { "input.yaml", "input-2.yaml" });
         // sc.setVerbose(true);
         sc.setLog(log);
-        sc.combine();
+
+        StringWriter w = new StringWriter();
+        sc.combine(w);
+
 
         Path expectedPath = new File("src/test/resources/t4/expected-output.yaml").toPath();
         List<String> expectedLines = Files.readAllLines(expectedPath);
         
-        Path p = new File("target/t4-output.yaml").toPath();
-        List<String> lines = Files.readAllLines(p);
+        List<String> lines = Arrays.asList(w.toString().split("\n"));
 
         Assert.assertEquals(expectedLines, lines);
 	}
