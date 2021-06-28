@@ -12,8 +12,6 @@
 	<inceptionYear>2021</inceptionYear>
 
 	<dependencies>
-		<!--  TODO reduce these to the lowest possible versions that will work -->
-	
 		<dependency>
 			<groupId>org.apache.maven</groupId>
 			<artifactId>maven-plugin-api</artifactId>
@@ -64,38 +62,11 @@
 		      <version>3.6.0</version>
 		      <scope>provided</scope>
 		 </dependency>
-		 <!-- 
 		 <dependency>
-		      <groupId>org.apache.maven.shared</groupId>
-		      <artifactId>maven-shared-utils</artifactId>
-		      <version>3.2.1</version>
-		    </dependency>
-		    -->
-    
-		
-		<!-- 
-		<dependency>
-			<groupId>org.apache.maven.shared</groupId>
-			<artifactId>maven-filtering</artifactId>
-			<version>1.0-beta-4</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		 -->
-		 <!-- 
-		<dependency>
-			<groupId>org.codehaus.plexus</groupId>
-			<artifactId>plexus-utils</artifactId>
-			<version>2.0.5</version> 3.0.15 ?
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		 -->
-		 <dependency>
-        <groupId>org.codehaus.plexus</groupId>
-        <artifactId>plexus-utils</artifactId>
-        <version>3.3.0</version>
-    </dependency>
+	        <groupId>org.codehaus.plexus</groupId>
+	        <artifactId>plexus-utils</artifactId>
+	        <version>3.3.0</version>
+        </dependency>
 		<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
@@ -115,27 +86,27 @@
 			<artifactId>swagger-core</artifactId>
 			<version>1.5.12</version>
 		</dependency> -->
-		
+
+		<!-- yaml parser -->		
 		<dependency>
-    <groupId>org.yaml</groupId>
-    <artifactId>snakeyaml</artifactId>
-    <version>1.28</version>            
-</dependency>
+		    <groupId>org.yaml</groupId>
+		    <artifactId>snakeyaml</artifactId>
+		    <version>1.28</version>            
+		</dependency>
 
-<!--  snakeyaml produces ugly yaml, so we use jackson's YAMLGenerator instead 
-snakeyaml:
-      parameters:
-      - {name: id, in: path, description: the ID of the assetClass to return, required: true,
-        type: string}
-vs jackson:
-      parameters:
-      - name: id
-        in: path
-        description: the ID of the assetClass to return
-        required: true
-        type: string
--->
-
+		<!--  snakeyaml produces ugly yaml output, so we use jackson's YAMLGenerator instead 
+		snakeyaml:
+		      parameters:
+		      - {name: id, in: path, description: the ID of the assetClass to return, required: true,
+		        type: string}
+		vs jackson:
+		      parameters:
+		      - name: id
+		        in: path
+		        description: the ID of the assetClass to return
+		        required: true
+		        type: string
+		-->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
@@ -145,35 +116,15 @@ vs jackson:
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
             <version>${jackson-version}</version>
-            <!-- 
-            <exclusions>
-            	<exclusion>
-            		<groupId>com.fasterxml.jackson.core</groupId>
-            		<artifactId>jackson-annotations</artifactId>
-            	</exclusion>
-            </exclusions>
-             -->
         </dependency>
-<!-- 
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-base</artifactId>
-            <version>${jackson-version}</version> 
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson-version}</version> 
-        </dependency>
- -->
 	</dependencies>
 	
 	<scm>
 		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</connection>
 		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-plugin.git</developerConnection>
 		<url>http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin</url>
-    <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
   
 	<ciManagement>
 		<system>Bamboo</system>
@@ -223,11 +174,11 @@ vs jackson:
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
-		<plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-plugin-plugin</artifactId>
-            <version>3.6.1</version>
-        </plugin>
+				<plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+		            <artifactId>maven-plugin-plugin</artifactId>
+		            <version>3.6.1</version>
+		        </plugin>
 
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -259,8 +210,8 @@ vs jackson:
 					<artifactId>maven-javadoc-plugin</artifactId>
 					<version>3.2.0</version>
 					<!-- 
-					  this configuration is used during the javadoc:jar goal during the release
-					  configuration for the reports is in the <reporting> section  
+					  this configuration is used during the javadoc:jar goal during the release.
+					  Configuration for the reports is in the <reporting> section  
 					-->
 					<configuration>
 	                	<additionalparam>-Xdoclint:none</additionalparam>
@@ -273,7 +224,7 @@ vs jackson:
 				</plugin>
 		
 
-				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<!-- This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself. -->
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -308,12 +259,6 @@ vs jackson:
 		</pluginManagement>
 	</build>
 
-	<!-- The performRelease profile is automatically included when performing 
-		releases. Don't forget to install the appropriate version of gpg.exe, and 
-		include the -Darguments=-Dgpg.passphrase=PASSPHRASE -Dgpg.passphrase=PASSPHRASE 
-		command-line options when releasing, as per https://docs.sonatype.org/display/Repository/How+To+Generate+PGP+Signatures+With+Maven 
-		unless that doesn't work, in which case updating settings.xml instead, as 
-		per http://stackoverflow.com/questions/14114528/avoid-gpg-signing-prompt-when-using-maven-release-plugin -->
 	<profiles>
 		<profile>
 			<id>release-sign-artifacts</id>
@@ -352,9 +297,9 @@ vs jackson:
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
-		          <webAccessUrl>https://github.com/randomnoun/vmaint-maven-plugin</webAccessUrl>
-		          <anonymousConnection>scm:git:ssh://git@github.com:randomnoun/vmaint-maven-plugin.git</anonymousConnection>
-		          <developerConnection>scm:git:ssh://git@github.com:randomnoun/vmaint-maven-plugin.git</developerConnection>
+		          <webAccessUrl>https://github.com/randomnoun/swagger-combine-maven-plugin</webAccessUrl>
+		          <anonymousConnection>scm:git:ssh://git@github.com:randomnoun/swagger-combine-maven-plugin.git</anonymousConnection>
+		          <developerConnection>scm:git:ssh://git@github.com:randomnoun/swagger-combine-maven-plugin.git</developerConnection>
 		        </configuration>
             </plugin>           
         
@@ -384,11 +329,7 @@ vs jackson:
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
 				<version>2.19.1</version>
-				<configuration>
-					<argLine>-Dnashorn.args="--no-deprecation-warning"</argLine>
-				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
@@ -420,7 +361,7 @@ vs jackson:
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jackson-version>2.11.3</jackson-version> <!-- was 2.8.9, is 2.10.1 in swagger-codegen -->
+		<jackson-version>2.11.3</jackson-version>
 	</properties>
 
 </project>
