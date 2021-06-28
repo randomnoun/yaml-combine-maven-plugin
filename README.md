@@ -15,13 +15,13 @@ The pre-processor will replace `$xrefs` with the content of those references.
 
     paths:
       /thing:
-        $ref: 'paths.yaml#/paths/~1thing
+        $xref: 'paths.yaml#/paths/~1thing
     
 or
 
     paths:
       /thing:
-        $ref: 'paths.yaml#/paths/%2Fthing
+        $xref: 'paths.yaml#/paths/%2Fthing
     
 To make references more readable, you can add '#' characters inside the reference. Each '#' character toggles how '/' characters are interpretted, either '/' as JSON-Pointer separators,
 or '/' as characters within a YAML key.
@@ -30,11 +30,13 @@ e.g.
 
     paths:
       /thing:
-        $ref: 'paths.yaml#/paths/#/thing
+        $xref: 'paths.yaml#/paths/#/thing
 
 ## Modifying imported objects
 
-Unlike `$ref`s, `$xref`s let you modify the imported object. An object defined via an `$xref` can provide additional keys which are merged in with the `$xref`ed object.
+Unlike `$ref`s, `$xref`s let you modify the imported object. 
+
+An object defined via an `$xref` can provide additional keys which are merged in with the `$xref`ed object.
 
 e.g.
 
@@ -44,9 +46,10 @@ e.g.
           $xref: 'paths.yaml#/paths/#/thing#/get'
           parameters:
             old-parameter:
-              description: some old parameter whose definition has changed
+              description: some old parameter whose description has changed
             new-parameter: 
-              description: the new parameter in v2 of the API that isn't in v1
+              description: a new parameter in v2 of the API that isn't in v1
+              type: string
 
 ## Combining entire input files
 
