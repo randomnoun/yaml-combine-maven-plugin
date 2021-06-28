@@ -4,7 +4,7 @@ This project provides a source pre-processor which can be used to combine one or
 
 ## Overview
 
-This plugin exists mainly because `$ref` references are only allowed in one or two places in the swagger spec, and you may want to import objects in other locations.
+This plugin exists mainly because `$ref` references are only allowed in one or two places in the [swagger spec](https://swagger.io/docs/specification/using-ref/), and you may want to import objects in other locations.
 
 ## Syntax
 
@@ -23,8 +23,8 @@ or
       /thing:
         $ref: 'paths.yaml#/paths/%2Fthing
     
-To make references more readable, you can add '#' characters inside the reference which toggles how '/' characters are interpretted ( either '/' as JSON-Pointer separators,
-or '/' as characters within a YAML key ).
+To make references more readable, you can add '#' characters inside the reference. Each '#' character toggles how '/' characters are interpretted, either '/' as JSON-Pointer separators,
+or '/' as characters within a YAML key.
 
 e.g.
 
@@ -34,7 +34,7 @@ e.g.
 
 ## Modifying imported objects
 
-Unlike `$ref`s, `$xref`s let you modify the imported object; an object defined via an $xref can provide additional keys which are merged in with the `$xref`ed object.
+Unlike `$ref`s, `$xref`s let you modify the imported object. An object defined via an `$xref` can provide additional keys which are merged in with the `$xref`ed object.
 
 e.g.
 
@@ -50,13 +50,51 @@ e.g.
 
 ## Combining entire input files
 
-As an alternative or in addition to using `$xref` references, you can also merge entire YAML files together by supplying them as inputs to the plugin.
-The YAML files will be merged together.
+As an alternative to using `$xref` references, you can also merge entire YAML files together by supplying multiple YAML files as inputs to the plugin.
 
 ## Handling of $ref
 
 Files can continue to use `$ref` references, and these references will survive the swagger-combine-maven-plugin process.
 
+## Examples
+
+Here's you how might use this plugin in your pom.xml file:
+
+    <project>
+      <build>
+        <plugins>
+    
+          <plugin>
+            <groupId>com.randomnoun.maven.plugins</groupId>
+            <artifactId>swagger-combine-maven-plugin</artifactId>
+            <version>1.0.0</version>
+            <executions>
+              <execution>
+                <id>swagger-combine</id>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>swagger-combine</goal>
+                </goals>
+                <configuration>
+                  <fileset>
+                    <includes>
+                      <!-- can supply multiple files here or filespecs; e.g. *.yaml -->
+                      <include>my-swagger-file-with-xrefs-in-it.yaml</include>
+                    </includes>
+                    <directory>${project.basedir}/src/main/swagger</directory>
+                  </fileset>
+                  <outputDirectory>${project.basedir}/target/swagger-combine</outputDirectory>
+                  <!-- use this file as the input to the codegen goal -->
+                  <finalName>my-swagger-file-with-resolved-xrefs.yaml</finalName>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+                
+        <plugins>
+      <build>
+    <project>
+            
 
 ## Alternatives
 
@@ -76,6 +114,6 @@ but these didn't really work for me.
 
 ## Licensing
 
-log4j-one is licensed under the BSD 2-clause license.
+swagger-combine-maven-plugin is licensed under the BSD 2-clause license.
 
 
