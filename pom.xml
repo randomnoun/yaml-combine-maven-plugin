@@ -3,7 +3,7 @@
 	
 	<groupId>com.randomnoun.maven.plugins</groupId>
 	<artifactId>swagger-combine-maven-plugin</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	
 	<description>Combines swagger yaml files in ways that swagger doesn't normally allow.</description>
@@ -123,7 +123,7 @@
 		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</connection>
 		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-plugin.git</developerConnection>
 		<url>http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin</url>
-        <tag>swagger-combine-maven-plugin-1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
   
 	<ciManagement>
