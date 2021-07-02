@@ -5,11 +5,12 @@ definitions:
       The type of a thing
       * `aubergineThePlant` - an aubergine ( the plant )
       * `aubergineTheColour` - aubergine ( the colour )
+      * `&#58186;` - aubergine ( the emoji ) - see http://www.iemoji.com/view/emoji/456/food-drink/eggplant for alternate encodings
       * `avocado` - an avocado
       * `eggplant` - an egg plant
       * `myocardialInfarction` - a myocardial infarction
 	  * `UNKNOWN` - backwards-compatibility enum value to be used if enum values are added after this API is released
     enum: [
-      "aubergineThePlant", "aubergineTheColour", "avocado", "eggplant", "myocardialInfarction", 
+      "aubergineThePlant", "aubergineTheColour", "\uE34A;", "avocado", "eggplant", "myocardialInfarction", 
       "UNKNOWN"
     ]
