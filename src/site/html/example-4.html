@@ -1,0 +1,105 @@
+<h2>Example 4 - Multiple inputs example</h2>
+
+<p>This example shows how multiple input files can be merged together to
+form a single output file, without requiring the use of <code>$xref</code> references 
+
+<hr/>
+
+<h3>Input</h3>
+<p><b>input.yaml</b>
+<pre>
+paths:
+  /thing:
+    get:
+      operationId: getThings
+      description: get all the things
+      parameters:
+      responses:
+        200:
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            status:
+              description: OK
+              type: string
+            thing:
+              type: array
+              items:
+                $ref: 'objects.yaml#/definitions/ThingObject'
+</pre>
+
+<p><b>input-2.yaml</b>
+<pre>
+paths:
+  /thing:
+    post:
+      operationId: addThing
+      description: |
+        Adds a new `Thing`.
+        * Things must be uniquely identifiable by `name`.
+        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
+      parameters:
+        thing:
+          $ref: 'objects.yaml#/definitions/ThingObject'
+      responses:
+        200:
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            status:
+              description: OK
+              type: string
+            thing:
+              type: array
+              items:
+                $ref: 'objects.yaml#/definitions/ThingObject'
+</pre>
+
+
+<h3>Output</h3>
+<pre>
+---
+paths:
+  /thing:
+    post:
+      operationId: addThing
+      description: |
+        Adds a new `Thing`.
+        * Things must be uniquely identifiable by `name`.
+        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
+      responses:
+        200: null
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            thing:
+              type: array
+              items:
+                $ref: objects.yaml#/definitions/ThingObject
+            status:
+              type: string
+              description: OK
+      parameters:
+        thing:
+          $ref: objects.yaml#/definitions/ThingObject
+    get:
+      operationId: getThings
+      description: get all the things
+      responses:
+        200: null
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            thing:
+              type: array
+              items:
+                $ref: objects.yaml#/definitions/ThingObject
+            status:
+              type: string
+              description: OK
+      parameters: null
+</pre>

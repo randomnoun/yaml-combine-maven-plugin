@@ -1,0 +1,126 @@
+<h2>Example 3 - Overriding keys example</h2>
+
+<p>This example shows how the objects imported via an <code>$xref</code> key
+can have additional keys which will be merged in with the referenced object.  
+
+<hr/>
+
+<h3>Input</h3>
+<p><b>input.yaml</b>
+<pre>
+paths:
+  /thing:
+    get:
+      # hashes in the path toggle between '/'-as-JSON-Pointer separators 
+      # and '/' as characters in the key
+      $xref: 'paths.yaml#/paths/#/thing#/get'
+
+    post:
+      # objects defined by xref can have other fields defined 
+      # which are merged in with the xref'ed object
+      $xref: 'paths.yaml#/paths/#/thing#/post'
+      parameters:
+        old-parameter:
+          description: some old parameter whose definition has changed
+        new-parameter: 
+          description: the new parameter in v2 of the API that isn't in v1
+</pre>
+
+<p><b>paths.yaml</b>
+<pre>
+paths:
+  /thing:
+    get:
+      operationId: getThings
+      description: get all the things
+      parameters:
+      responses:
+        200:
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            status:
+              description: OK
+              type: string
+            thing:
+              type: array
+              items:
+                $ref: 'objects.yaml#/definitions/ThingObject'
+    post:
+      operationId: addThing
+      description: |
+        Adds a new `Thing`.
+        * Things must be uniquely identifiable by `name`.
+        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
+      parameters:
+        thing:
+          $ref: 'objects.yaml#/definitions/ThingObject'
+        old-parameter:
+          description: this description will be overridden in input.yaml
+      responses:
+        200:
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            status:
+              description: OK
+              type: string
+            thing:
+              type: array
+              items:
+                $ref: 'objects.yaml#/definitions/ThingObject'
+    
+</pre>
+
+
+<h3>Output</h3>
+<pre>
+---
+paths:
+  /thing:
+    post:
+      operationId: addThing
+      description: |
+        Adds a new `Thing`.
+        * Things must be uniquely identifiable by `name`.
+        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
+      responses:
+        200: null
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            thing:
+              type: array
+              items:
+                $ref: objects.yaml#/definitions/ThingObject
+            status:
+              type: string
+              description: OK
+      parameters:
+        thing:
+          $ref: objects.yaml#/definitions/ThingObject
+        old-parameter:
+          description: some old parameter whose definition has changed
+        new-parameter:
+          description: the new parameter in v2 of the API that isn't in v1
+    get:
+      operationId: getThings
+      description: get all the things
+      responses:
+        200: null
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            thing:
+              type: array
+              items:
+                $ref: objects.yaml#/definitions/ThingObject
+            status:
+              type: string
+              description: OK
+      parameters: null
+</pre>
