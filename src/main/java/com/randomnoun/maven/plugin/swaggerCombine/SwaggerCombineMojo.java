@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugins.annotations.Component;
+import org.codehaus.plexus.logging.Logger;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -17,6 +19,10 @@ import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.settings.Settings;
 import org.apache.maven.shared.model.fileset.FileSet;
 import org.apache.maven.shared.utils.io.DirectoryScanner;
+import org.apache.maven.shared.utils.io.FileUtils;
+import org.apache.maven.shared.filtering.DefaultMavenFileFilter;
+import org.apache.maven.shared.filtering.MavenFilteringException;
+import org.apache.maven.shared.filtering.MavenResourcesExecution;
 
 /**
  * Maven goal which combines a bunch of yaml files into a big yaml file.
@@ -24,6 +30,7 @@ import org.apache.maven.shared.utils.io.DirectoryScanner;
  * @blog http://www.randomnoun.com/wp/2021/06/06/something-yet-be-written/
  */
 @Mojo (name = "swagger-combine", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+
 public class SwaggerCombineMojo
     extends AbstractMojo
 {
@@ -84,11 +91,11 @@ public class SwaggerCombineMojo
      */
     private Settings settings;
 
-    
+
     /**
      *
      */
-    @Component
+    @org.apache.maven.plugins.annotations.Component
     private MavenProjectHelper projectHelper;
 
     
@@ -179,7 +186,33 @@ public class SwaggerCombineMojo
 			sc.setRelativeDir(new File(fileset.getDirectory()));
 			sc.setFiles(files);
 			sc.setLog(getLog());
+			
 			FileOutputStream fos = new FileOutputStream(destFile);
+			if (filtering) {
+				MavenResourcesExecution mre = new MavenResourcesExecution();
+		        mre.setMavenProject( project );
+		        mre.setFileFilters( null );
+		        mre.setEscapeWindowsPaths( true );
+		        mre.setMavenSession( session );
+		        mre.setInjectProjectBuildFilters( true );
+		        
+		        // there's probably a better way of getting a plexus Logger instance
+		        // but bugger me if I can work it out. 
+		        // after about 15 levels of indirection they end up not-properly wrapping slf4j anyway.
+		        ConsoleLoggerManager clm = new ConsoleLoggerManager();
+		        Logger logger = clm.getLoggerForComponent("SwaggerCombineMojo");
+		        
+		        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter();
+		        dmff.enableLogging(logger);
+		        getLog().info("logger is " + logger);
+				try {
+					List<FileUtils.FilterWrapper> filterWrappers = dmff.getDefaultFilterWrappers( mre );
+					sc.setFilterWrappers(filterWrappers);
+				} catch (MavenFilteringException e) {
+					throw new IllegalStateException("Coult not get default filter wrappers", e);
+				}
+			}
+			
 			PrintWriter w = new PrintWriter(fos);
 			sc.combine(w);
 			fos.close();

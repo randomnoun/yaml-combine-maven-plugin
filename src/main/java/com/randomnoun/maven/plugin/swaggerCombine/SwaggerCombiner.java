@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLDecoder;
@@ -18,6 +20,7 @@ import java.util.Set;
 import java.util.function.IntConsumer;
 
 import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.shared.utils.io.FileUtils.FilterWrapper;
 import org.yaml.snakeyaml.Yaml;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,10 +29,19 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
 public class SwaggerCombiner {
 
+	public List<FilterWrapper> getFilterWrappers() {
+		return filterWrappers;
+	}
+
+	public void setFilterWrappers(List<FilterWrapper> filterWrappers) {
+		this.filterWrappers = filterWrappers;
+	}
+
 	File relativeDir;
 	String[] files;
 	boolean verbose;
 	Log log;
+	List<FilterWrapper> filterWrappers;
 
 	private Map<String, Map<String, Object>> yamlFiles = new HashMap<String, Map<String, Object>>();
 
@@ -44,8 +56,15 @@ public class SwaggerCombiner {
 		Map mergedObj = null;
 		for (String f : fileList) {
 			InputStream inputStream = new FileInputStream(new File(relativeDir, f));
+			Reader reader = new InputStreamReader(inputStream);
+			if (filterWrappers != null) {
+				for ( FilterWrapper wrapper : filterWrappers ) {
+                    reader = wrapper.getReader( reader );
+                }
+			}
+			
 			@SuppressWarnings("rawtypes")
-			Map obj = yaml.load(inputStream);
+			Map obj = yaml.load(reader);
 			if (mergedObj == null) {
 				mergedObj = obj;
 			} else {
@@ -315,5 +334,6 @@ public class SwaggerCombiner {
 	public void setLog(Log log) {
 		this.log = log;
 	}
+
 
 }
