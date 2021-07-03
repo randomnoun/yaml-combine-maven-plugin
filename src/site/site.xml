@@ -113,6 +113,14 @@ to generate even more code using the <a href="https://swagger.io/tools/swagger-c
             <body/><!--  the rest -->
           </sections>
         </example-4>
+        <example-5>
+           <toc>false</toc>
+           <sections>
+            <columns>1</columns><!-- description -->
+            <columns>2</columns><!-- input/output -->
+            <body/><!--  the rest -->
+          </sections>
+        </example-5>
         
         <!-- Disable source highlighting for Maven reports -->
         <source-repository>
