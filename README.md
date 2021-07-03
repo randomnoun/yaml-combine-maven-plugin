@@ -7,7 +7,7 @@ This project provides a source pre-processor which can be used to combine one or
 This plugin exists mainly because `$ref` references are only allowed in one or two places in the [swagger spec](https://swagger.io/docs/specification/using-ref/), 
 and you may want to import objects in other locations.
 
-It does this by adding a new reference type called $xref which is identical to $ref except
+It does this by adding a new reference type called `$xref` which is identical to `$ref` except
 
 * you can use them anywhere in the yaml file
 * you can add or override keys in the referenced objects
