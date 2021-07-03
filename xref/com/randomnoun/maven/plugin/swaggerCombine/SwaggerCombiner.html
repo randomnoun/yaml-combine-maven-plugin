@@ -194,7 +194,7 @@
 <a class="jxr_linenumber" name="L186" href="#L186">186</a> 
 <a class="jxr_linenumber" name="L187" href="#L187">187</a> 	<strong class="jxr_keyword">public</strong> Object getXref(File relativeDir, String ref) <strong class="jxr_keyword">throws</strong> IllegalArgumentException, IOException {
 <a class="jxr_linenumber" name="L188" href="#L188">188</a> 		<em class="jxr_comment">// myproject-v1-object.yaml#/definitions/InvalidResponse       existing</em>
-<a class="jxr_linenumber" name="L189" href="#L189">189</a> 		<em class="jxr_comment">// myproject-v1-swagger-api.yaml#/paths/~1authenticate         the JSONPath way</em>
+<a class="jxr_linenumber" name="L189" href="#L189">189</a> 		<em class="jxr_comment">// myproject-v1-swagger-api.yaml#/paths/~1authenticate         the JSON-Pointer way</em>
 <a class="jxr_linenumber" name="L190" href="#L190">190</a> 		<em class="jxr_comment">// myproject-v1-swagger-api.yaml#/paths/%2Fauthenticate        the url escape way</em>
 <a class="jxr_linenumber" name="L191" href="#L191">191</a> 		<em class="jxr_comment">// myproject-v1-swagger-api.yaml#/paths/#/authenticate         the randomnoun way.</em>
 <a class="jxr_linenumber" name="L192" href="#L192">192</a> 
@@ -208,7 +208,7 @@
 <a class="jxr_linenumber" name="L200" href="#L200">200</a> 			String f = ref.substring(0, pos);
 <a class="jxr_linenumber" name="L201" href="#L201">201</a> 			String p = ref.substring(pos + 1);
 <a class="jxr_linenumber" name="L202" href="#L202">202</a> 			<em class="jxr_comment">// any remaining '#' chars switch between ~1-style escaping and no escaping</em>
-<a class="jxr_linenumber" name="L203" href="#L203">203</a> 			<em class="jxr_comment">// see ResolverCache or the jsonPath escaping rules in swagger</em>
+<a class="jxr_linenumber" name="L203" href="#L203">203</a> 			<em class="jxr_comment">// see ResolverCache or the json-pointer escaping rules in swagger</em>
 <a class="jxr_linenumber" name="L204" href="#L204">204</a> 			<strong class="jxr_keyword">final</strong> StringBuilder result = <strong class="jxr_keyword">new</strong> StringBuilder();
 <a class="jxr_linenumber" name="L205" href="#L205">205</a> 			p.chars().forEachOrdered(<strong class="jxr_keyword">new</strong> IntConsumer() {
 <a class="jxr_linenumber" name="L206" href="#L206">206</a> 				<strong class="jxr_keyword">boolean</strong> asJsonPath = <strong class="jxr_keyword">true</strong>;
