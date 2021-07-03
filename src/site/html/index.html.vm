@@ -20,7 +20,7 @@
 <h2>Overview</h2>
 
 <p><b>swagger-combine-maven-plugin</b> is a maven plugin which provides
-a pre-processor for combining YAML source files, presumably before those files
+a pre-processor for combining YAML source files, before those files
 are then used to generate even more code 
 using the <a href="https://swagger.io/tools/swagger-codegen/">swagger toolchain</a>.
 

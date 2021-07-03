@@ -56,7 +56,7 @@
       <bottomDescription>
         <![CDATA[
 <span class="color-highlight">swagger-combine-maven-plugin</span> is a Maven project which provides
-a pre-processor for combining YAML source files, presumably before using those files
+a pre-processor for combining YAML source files, before using those files
 to generate even more code using the <a href="https://swagger.io/tools/swagger-codegen/">swagger toolchain</a>.
 ]]>
       </bottomDescription>

@@ -4,7 +4,14 @@ This project provides a source pre-processor which can be used to combine one or
 
 ## Overview
 
-This plugin exists mainly because `$ref` references are only allowed in one or two places in the [swagger spec](https://swagger.io/docs/specification/using-ref/), and you may want to import objects in other locations.
+This plugin exists mainly because `$ref` references are only allowed in one or two places in the [swagger spec](https://swagger.io/docs/specification/using-ref/), 
+and you may want to import objects in other locations.
+
+It does this by adding a new reference type called $xref which is identical to $ref except
+
+* you can use them anywhere in the yaml file
+* you can add or override keys in the referenced objects
+* the syntax allows forward slashes in path keys to appear as forward slashes
 
 [The maven documentation for the plugin is here](https://randomnoun.github.io/swagger-combine-maven-plugin/)
 
