@@ -6,7 +6,7 @@ This project provides a source pre-processor which can be used to combine one or
 
 This plugin exists mainly because `$ref` references are only allowed in one or two places in the [swagger spec](https://swagger.io/docs/specification/using-ref/), and you may want to import objects in other locations.
 
-[The maven documentation for the plugin is here](https://randomnoun.github.io/jessop/apidocs/index.html)
+[The maven documentation for the plugin is here](https://randomnoun.github.io/swagger-combine/index.html)
 
 And there's a [blog article here](http://www.randomnoun.com/wp/2021/06/29/swagger-combine/).
 
