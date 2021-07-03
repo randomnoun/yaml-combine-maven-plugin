@@ -55,9 +55,10 @@ e.g.
               description: a new parameter in v2 of the API that isn't in v1
               type: string
 
-## Combining entire input files
+## Combining input files
 
-As an alternative to using `$xref` references, you can also merge entire YAML files together by supplying multiple YAML files as inputs to the plugin.
+As an alternative (or in addition) to using `$xref` to reference external files, you can also merge 
+YAML files together by supplying multiple YAML files as inputs to the plugin.
 
 ## Handling of $ref
 
@@ -65,12 +66,14 @@ Files can continue to use `$ref` references, and these references will survive t
 
 ## Examples
 
+There's a handful of examples in the [site documentation for the plugin](https://randomnoun.github.io/swagger-combine-maven-plugin/)
+
 Here's you how might use this plugin in your pom.xml file:
 
     <project>
       <build>
         <plugins>
-    
+        
           <plugin>
             <groupId>com.randomnoun.maven.plugins</groupId>
             <artifactId>swagger-combine-maven-plugin</artifactId>
@@ -85,12 +88,14 @@ Here's you how might use this plugin in your pom.xml file:
                 <configuration>
                   <fileset>
                     <includes>
+    
                       <!-- can supply multiple files here or filespecs; e.g. *.yaml -->
                       <include>my-swagger-file-with-xrefs-in-it.yaml</include>
                     </includes>
                     <directory>${project.basedir}/src/main/swagger</directory>
                   </fileset>
                   <outputDirectory>${project.basedir}/target/swagger-combine</outputDirectory>
+    
                   <!-- use this file as the input to the codegen goal -->
                   <finalName>my-swagger-file-with-resolved-xrefs.yaml</finalName>
                 </configuration>
