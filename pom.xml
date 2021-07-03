@@ -374,6 +374,11 @@
 	        <url>http://nexus2.dev.randomnoun/nexus/content/repositories/snapshots/</url>
 	        <uniqueVersion>false</uniqueVersion>
 	    </snapshotRepository>
+		<site>
+        	<id>gh-pages</id>
+        	<name>jessop Website</name>
+	        <url>git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git?gh-pages#</url>
+    	</site>
 	</distributionManagement>
 
 	<properties>
