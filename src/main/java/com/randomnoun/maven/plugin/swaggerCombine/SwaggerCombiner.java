@@ -7,8 +7,12 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.IntConsumer;
@@ -32,10 +36,13 @@ public class SwaggerCombiner {
 	@SuppressWarnings("unchecked")
 	public void combine(Writer w) throws IOException {
 
+		List<String> fileList = new ArrayList<String>(Arrays.asList(files));
+		Collections.sort(fileList);
+		
 		Yaml yaml = new Yaml();
 		@SuppressWarnings("rawtypes")
 		Map mergedObj = null;
-		for (String f : files) {
+		for (String f : fileList) {
 			InputStream inputStream = new FileInputStream(new File(relativeDir, f));
 			@SuppressWarnings("rawtypes")
 			Map obj = yaml.load(inputStream);
@@ -80,8 +87,8 @@ public class SwaggerCombiner {
 				// replace if the types are the same
 				mergedObj.put(k, v);
 			} else {
-				throw new IllegalArgumentException("Could not merge " + f + "#" + prefix + String.valueOf(k) + " ("
-						+ v.getClass().getName() + " ) into merged object " + mv.getClass().getName());
+				throw new IllegalArgumentException("Could not merge " + f + "#" + prefix + String.valueOf(k) + 
+					" (" + v.getClass().getName() + " ) into merged object " + mv.getClass().getName());
 			}
 		}
 	}

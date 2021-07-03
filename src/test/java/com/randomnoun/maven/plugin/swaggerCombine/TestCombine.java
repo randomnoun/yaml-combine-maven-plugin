@@ -93,7 +93,6 @@ public class TestCombine extends  TestCase {
         StringWriter w = new StringWriter();
         sc.combine(w);
 
-
         Path expectedPath = new File("src/test/resources/t4/expected-output.yaml").toPath();
         List<String> expectedLines = Files.readAllLines(expectedPath);
         
