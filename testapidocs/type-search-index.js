@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.randomnoun.maven.plugin.swaggerCombine","l":"TestCombine"}]
