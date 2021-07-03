@@ -49,7 +49,7 @@ and you may want to import objects in other locations.
 
 <ul>
 <li><a href="example-1.html">Simple $xref example</a> - resolves <code>$xrefs</code>, but not <code>$refs</code>
-<li><a href="example-2.html">Escaping paths example</a> - same as above, but shows how '<code>#</code>' can toggle JSON-Path escaping rules 
+<li><a href="example-2.html">Escaping paths example</a> - same as above, but shows how '<code>#</code>' can toggle JSON-Pointer escaping rules 
 <li><a href="example-3.html">Override keys example</a> - overriding keys in the imported object
 <li><a href="example-4.html">Multiple inputs example</a> - combining multiple input files
 <li><a href="example-5.html">Simple $xref example with filtering</a> - maven <code>${dollar}{}</code> substitution during processing 

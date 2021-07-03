@@ -186,7 +186,7 @@ public class SwaggerCombiner {
 
 	public Object getXref(File relativeDir, String ref) throws IllegalArgumentException, IOException {
 		// myproject-v1-object.yaml#/definitions/InvalidResponse       existing
-		// myproject-v1-swagger-api.yaml#/paths/~1authenticate         the JSONPath way
+		// myproject-v1-swagger-api.yaml#/paths/~1authenticate         the JSON-Pointer way
 		// myproject-v1-swagger-api.yaml#/paths/%2Fauthenticate        the url escape way
 		// myproject-v1-swagger-api.yaml#/paths/#/authenticate         the randomnoun way.
 
@@ -200,7 +200,7 @@ public class SwaggerCombiner {
 			String f = ref.substring(0, pos);
 			String p = ref.substring(pos + 1);
 			// any remaining '#' chars switch between ~1-style escaping and no escaping
-			// see ResolverCache or the jsonPath escaping rules in swagger
+			// see ResolverCache or the json-pointer escaping rules in swagger
 			final StringBuilder result = new StringBuilder();
 			p.chars().forEachOrdered(new IntConsumer() {
 				boolean asJsonPath = true;

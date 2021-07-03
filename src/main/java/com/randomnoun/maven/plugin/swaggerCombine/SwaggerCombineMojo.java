@@ -197,7 +197,7 @@ public class SwaggerCombineMojo
 		        mre.setInjectProjectBuildFilters( true );
 		        
 		        // there's probably a better way of getting a plexus Logger instance
-		        // but bugger me if I can work it out. 
+		        // but for the life of me I can't work it out 
 		        // after about 15 levels of indirection they end up not-properly wrapping slf4j anyway.
 		        ConsoleLoggerManager clm = new ConsoleLoggerManager();
 		        Logger logger = clm.getLoggerForComponent("SwaggerCombineMojo");
