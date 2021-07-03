@@ -199,11 +199,12 @@ public class SwaggerCombineMojo
 		        // there's probably a better way of getting a plexus Logger instance
 		        // but for the life of me I can't work it out 
 		        // after about 15 levels of indirection they end up not-properly wrapping slf4j anyway.
+		        // ( see https://maven.apache.org/ref/3.6.0/maven-embedder/apidocs/org/apache/maven/cli/logging/Slf4jLoggerManager.html )
 		        ConsoleLoggerManager clm = new ConsoleLoggerManager();
 		        Logger logger = clm.getLoggerForComponent("SwaggerCombineMojo");
 		        
 		        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter();
-		        dmff.enableLogging(logger);
+		        dmff.enableLogging(logger); // filter will NPE if this isn't set
 		        getLog().info("logger is " + logger);
 				try {
 					List<FileUtils.FilterWrapper> filterWrappers = dmff.getDefaultFilterWrappers( mre );
