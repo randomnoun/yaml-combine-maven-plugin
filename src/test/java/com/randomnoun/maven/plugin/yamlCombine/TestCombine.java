@@ -1,4 +1,4 @@
-package com.randomnoun.maven.plugin.swaggerCombine;
+package com.randomnoun.maven.plugin.yamlCombine;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,8 @@ import java.util.List;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 
+import com.randomnoun.maven.plugin.yamlCombine.YamlCombiner;
+
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
@@ -22,7 +24,7 @@ public class TestCombine extends  TestCase {
 	public void test1() throws IOException {
 		Log log = new SystemStreamLog();
 
-		SwaggerCombiner sc = new SwaggerCombiner();
+		YamlCombiner sc = new YamlCombiner();
         sc.setRelativeDir(new File("src/test/resources/t1"));
         sc.setFiles(new String[] { "input.yaml" });
         sc.setLog(log);
@@ -43,7 +45,7 @@ public class TestCombine extends  TestCase {
 	public void test2() throws IOException {
 		Log log = new SystemStreamLog();
 
-		SwaggerCombiner sc = new SwaggerCombiner();
+		YamlCombiner sc = new YamlCombiner();
         sc.setRelativeDir(new File("src/test/resources/t2"));
         sc.setFiles(new String[] { "input.yaml" });
         sc.setLog(log);
@@ -63,7 +65,7 @@ public class TestCombine extends  TestCase {
 	public void test3() throws IOException {
 		Log log = new SystemStreamLog();
 
-		SwaggerCombiner sc = new SwaggerCombiner();
+		YamlCombiner sc = new YamlCombiner();
         sc.setRelativeDir(new File("src/test/resources/t3"));
         sc.setFiles(new String[] { "input.yaml" });
         // sc.setVerbose(true);
@@ -84,7 +86,7 @@ public class TestCombine extends  TestCase {
 	public void test4() throws IOException {
 		Log log = new SystemStreamLog();
 
-		SwaggerCombiner sc = new SwaggerCombiner();
+		YamlCombiner sc = new YamlCombiner();
         sc.setRelativeDir(new File("src/test/resources/t4"));
         sc.setFiles(new String[] { "input.yaml", "input-2.yaml" });
         // sc.setVerbose(true);

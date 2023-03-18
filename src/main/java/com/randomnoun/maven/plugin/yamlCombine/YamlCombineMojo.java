@@ -31,7 +31,7 @@ import org.apache.maven.shared.filtering.MavenResourcesExecution;
  */
 @Mojo (name = "swagger-combine", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 
-public class SwaggerCombineMojo
+public class YamlCombineMojo
     extends AbstractMojo
 {
 	// FileSet handling from 
@@ -182,7 +182,7 @@ public class SwaggerCombineMojo
 
 		// let's just have a single output file then.
 		try {
-			SwaggerCombiner sc = new SwaggerCombiner();
+			YamlCombiner sc = new YamlCombiner();
 			sc.setRelativeDir(new File(fileset.getDirectory()));
 			sc.setFiles(files);
 			sc.setLog(getLog());

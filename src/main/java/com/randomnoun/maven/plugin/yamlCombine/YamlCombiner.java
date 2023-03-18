@@ -27,7 +27,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 
-public class SwaggerCombiner {
+public class YamlCombiner {
 
 	public List<FilterWrapper> getFilterWrappers() {
 		return filterWrappers;
