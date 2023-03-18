@@ -174,15 +174,15 @@
 	<build>
 		<finalName>yaml-combine-maven-plugin</finalName>
 
-		<!-- Build with Java 1.6 until that doesn't work -->
+		<!-- Build with Java 7 until that doesn't work -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.6</source>
-						<target>1.6</target>
+						<source>7</source>
+						<target>7</target>
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
