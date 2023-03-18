@@ -1,4 +1,4 @@
-package com.randomnoun.maven.plugin.swaggerCombine;
+package com.randomnoun.maven.plugin.yamlCombine;
 
 import java.io.File;
 import java.io.FileInputStream;
