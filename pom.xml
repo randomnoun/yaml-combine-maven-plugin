@@ -382,7 +382,7 @@
 	    </snapshotRepository>
 		<site>
         	<id>gh-pages</id>
-        	<name>jessop Website</name>
+        	<name>swagger-combine-maven-plugin Website</name>
 	        <url>git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git?gh-pages#</url>
     	</site>
 	</distributionManagement>
