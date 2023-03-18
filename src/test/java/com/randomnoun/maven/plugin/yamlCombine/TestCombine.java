@@ -11,8 +11,6 @@ import java.util.List;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 
-import com.randomnoun.maven.plugin.yamlCombine.YamlCombiner;
-
 import junit.framework.Assert;
 import junit.framework.TestCase;
 

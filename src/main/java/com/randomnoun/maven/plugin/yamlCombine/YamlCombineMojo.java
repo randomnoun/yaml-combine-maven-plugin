@@ -181,13 +181,14 @@ public class YamlCombineMojo
 		String[] files = scanner.getIncludedFiles(); // also performs exclusion. So way to go, maven.
 
 		// let's just have a single output file then.
+		FileOutputStream fos = null;
 		try {
 			YamlCombiner sc = new YamlCombiner();
 			sc.setRelativeDir(new File(fileset.getDirectory()));
 			sc.setFiles(files);
 			sc.setLog(getLog());
 			
-			FileOutputStream fos = new FileOutputStream(destFile);
+			fos = new FileOutputStream(destFile);
 			if (filtering) {
 				MavenResourcesExecution mre = new MavenResourcesExecution();
 		        mre.setMavenProject( project );
@@ -216,10 +217,17 @@ public class YamlCombineMojo
 			
 			PrintWriter w = new PrintWriter(fos);
 			sc.combine(w);
-			fos.close();
 		} catch (IOException ioe) {
 			// trouble at the mill
 			throw new MojoExecutionException("Could not create combined swagger file", ioe); 
+		} finally {
+			if (fos != null) {
+				try {
+					fos.close();
+				} catch(IOException ioe) {
+					throw new IllegalStateException("IOException closing file", ioe);
+				}
+			}
 		}
 		return destFile;
 
