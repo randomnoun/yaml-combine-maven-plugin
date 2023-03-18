@@ -1,4 +1,4 @@
-# swagger-combine-maven-plugin
+# yaml-combine-maven-plugin
 
 This project provides a source pre-processor which can be used to combine one or more YAML files before swagger code generation.
 
@@ -69,7 +69,7 @@ YAML files together by supplying multiple YAML files as inputs to the plugin.
 
 ## Handling of $ref
 
-Files can continue to use `$ref` references, and these references will survive the swagger-combine-maven-plugin process.
+Files can continue to use `$ref` references, and these references will survive the yaml-combine-maven-plugin process.
 
 ## Examples
 
@@ -83,14 +83,14 @@ Here's you how might use this plugin in your pom.xml file:
         
           <plugin>
             <groupId>com.randomnoun.maven.plugins</groupId>
-            <artifactId>swagger-combine-maven-plugin</artifactId>
-            <version>1.0.3</version>
+            <artifactId>yaml-combine-maven-plugin</artifactId>
+            <version>2.0.0</version>
             <executions>
               <execution>
-                <id>swagger-combine</id>
+                <id>yaml-combine</id>
                 <phase>generate-sources</phase>
                 <goals>
-                    <goal>swagger-combine</goal>
+                    <goal>yaml-combine</goal>
                 </goals>
                 <configuration>
                   <fileset>
@@ -137,6 +137,6 @@ but these didn't really work for me.
 
 ## Licensing
 
-swagger-combine-maven-plugin is licensed under the BSD 2-clause license.
+yaml-combine-maven-plugin is licensed under the BSD 2-clause license.
 
 

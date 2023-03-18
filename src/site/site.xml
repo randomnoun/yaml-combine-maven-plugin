@@ -7,10 +7,10 @@
   <bannerLeft>
     <!-- Reflow Maven Skin, but with "randomnoun" highlighted -->
     <name><![CDATA[
-<span class="color-highlight">randomnoun</span> swagger-combine-maven-plugin
+<span class="color-highlight">randomnoun</span> yaml-combine-maven-plugin
 ]]>
     </name>
-    <href>https://randomnoun.github.io/swagger-combine-maven-plugin/</href>
+    <href>https://randomnoun.github.io/yaml-combine-maven-plugin/</href>
   </bannerLeft>
   
   <skin>
@@ -22,7 +22,7 @@
  <custom>
     <reflowSkin>
       <!-- uncomment this for local dev and change protocolRelativeURLs to false (creates file:// URLs)   
-      <absoluteResourceURL>file:///C:/Documents and Settings/knoxg/workspace-4.4.1-sts-3.6.2-rn/swagger-combine-maven-plugin/target/site</absoluteResourceURL>
+      <absoluteResourceURL>file:///C:/Documents and Settings/knoxg/workspace-4.4.1-sts-3.6.2-rn/yaml-combine-maven-plugin/target/site</absoluteResourceURL>
        -->
       <protocolRelativeURLs>true</protocolRelativeURLs>
       <smoothScroll>true</smoothScroll>
@@ -34,10 +34,10 @@
         <!-- Brand text in top-left part of the site -->
         <name>
           <![CDATA[
-<span class="color-highlight">randomnoun</span> swagger-combine-maven-plugin
+<span class="color-highlight">randomnoun</span> yaml-combine-maven-plugin
 ]]>
         </name>
-        <href>https://randomnoun.github.io/swagger-combine-maven-plugin/</href>
+        <href>https://randomnoun.github.io/yaml-combine-maven-plugin/</href>
       </brand>
       <slogan>Plugin to combine YAML files</slogan>
       <titleTemplate>%2$s | %1$s</titleTemplate>
@@ -55,16 +55,18 @@
       </bottomNav>
       <bottomDescription>
         <![CDATA[
-<span class="color-highlight">swagger-combine-maven-plugin</span> is a Maven project which provides
-a pre-processor for combining YAML source files, before using those files
-to generate even more code using the <a href="https://swagger.io/tools/swagger-codegen/">swagger toolchain</a>.
+<span class="color-highlight">yaml-combine-maven-plugin</span> is a Maven project which provides
+a pre-processor for combining YAML source files.
+
+Those files can then be used to generate even more code using the 
+<a href="https://swagger.io/tools/swagger-codegen/">swagger toolchain</a>.
 ]]>
       </bottomDescription>
       <pages>
-        <index project="swagger-combine-maven-plugin">
+        <index project="yaml-combine-maven-plugin">
           <shortTitle>Usage</shortTitle> <!-- hmm -->
           <!-- Override the title -->
-          <titleTemplate>randomnoun swagger-combine-maven-plugin</titleTemplate>
+          <titleTemplate>randomnoun yaml-combine-maven-plugin</titleTemplate>
           <!-- no breadcrumbs on the main index page -->
           <!--  <breadcrumbs>false</breadcrumbs>  -->
           <!-- no ToC on the main index page -->
@@ -157,12 +159,12 @@ to generate even more code using the <a href="https://swagger.io/tools/swagger-c
     </links>
 
     <breadcrumbs>
-      <item name="swagger-combine-maven-plugin" href="/" />
+      <item name="yaml-combine-maven-plugin" href="/" />
     </breadcrumbs>
   
     <menu name="Main" inherit="top">
       <item name="Home" href="index.html" />
-      <item name="Github project" href="https://github.com/randomnoun/swagger-combine-maven-plugin" />
+      <item name="Github project" href="https://github.com/randomnoun/yaml-combine-maven-plugin" />
       <item name="Release notes" href="changes-report.html" />
     </menu>
     <menu name="Download" inherit="top">

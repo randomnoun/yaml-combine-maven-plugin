@@ -19,7 +19,7 @@
 
 <h2>Overview</h2>
 
-<p><b>swagger-combine-maven-plugin</b> is a maven plugin which provides
+<p><b>yaml-combine-maven-plugin</b> is a maven plugin which provides
 a pre-processor for combining YAML source files, before those files
 are then used to generate even more code 
 using the <a href="https://swagger.io/tools/swagger-codegen/">swagger toolchain</a>.
@@ -33,12 +33,13 @@ and you may want to import objects in other locations.
 <h2>Goals</h2>
 
 <ul>
-  <li><a href="./swagger-combine-mojo.html">swagger-combine:swagger-combine</a> combines a bunch of yaml files into a big yaml file
+  <li><a href="./yaml-combine-mojo.html">yaml-combine:yaml-combine</a> combines a bunch of yaml files into a big yaml file
 </ul>
 
 <h2>Syntax</h2>
 
-<p>swagger-combine extends the swagger interface definition language with a new <code>$xref</code> referencing method.  
+<p>yaml-combine extends the swagger interface definition language with a new <code>$xref</code> referencing method,
+but it is not limitted to just processing swagger files.  
 
 <p>Details on using <b>$xref</b>s can be found on the
 <a href="https://github.com/randomnoun/swagger-combine-maven-plugin">github README</a>.
@@ -71,22 +72,22 @@ and you may want to import objects in other locations.
         
         &lt;executions&gt;
           &lt;execution&gt;
-            &lt;id&gt;swagger-combine&lt;/id&gt;
+            &lt;id&gt;yaml-combine&lt;/id&gt;
             &lt;phase&gt;generate-sources&lt;/phase&gt;
             &lt;goals&gt;
-                &lt;goal&gt;swagger-combine&lt;/goal&gt;
+                &lt;goal&gt;yaml-combine&lt;/goal&gt;
             &lt;/goals&gt;
             &lt;configuration&gt;
               &lt;fileset&gt;
                 &lt;includes&gt;
 <b>                  &lt;!-- can supply multiple files here or filespecs; e.g. *.yaml --&gt;</b>
-<b>                  &lt;include&gt;my-swagger-file-with-xrefs-in-it.yaml&lt;/include&gt;</b>
+<b>                  &lt;include&gt;my-yaml-file-with-xrefs-in-it.yaml&lt;/include&gt;</b>
                 &lt;/includes&gt;
-                &lt;directory&gt;${dollar}{project.basedir}/src/main/swagger&lt;/directory&gt;
+                &lt;directory&gt;${dollar}{project.basedir}/src/main/yaml&lt;/directory&gt;
               &lt;/fileset&gt;
-              &lt;outputDirectory&gt;${dollar}{project.basedir}/target/swagger-combine&lt;/outputDirectory&gt;
+              &lt;outputDirectory&gt;${dollar}{project.basedir}/target/yaml-combine&lt;/outputDirectory&gt;
               &lt;!-- use this file as the input to the codegen goal --&gt;
-<b>              &lt;finalName&gt;my-swagger-file-with-resolved-xrefs.yaml&lt;/finalName&gt;</b>
+<b>              &lt;finalName&gt;my-yaml-file-with-resolved-xrefs.yaml&lt;/finalName&gt;</b>
             &lt;/configuration&gt;
           &lt;/execution&gt;
         &lt;/executions&gt;
@@ -99,7 +100,7 @@ and you may want to import objects in other locations.
 
 
 <h2>License</h2>
-<b>swagger-combine</b> is licensed under the <a href="license.html">Simplified BSD 2-clause license</a>.
+<b>yaml-combine</b> is licensed under the <a href="license.html">Simplified BSD 2-clause license</a>.
 
 <!--
 Kind of hoping that this works

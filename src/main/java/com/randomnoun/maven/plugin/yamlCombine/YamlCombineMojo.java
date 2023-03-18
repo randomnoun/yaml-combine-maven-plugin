@@ -29,7 +29,7 @@ import org.apache.maven.shared.filtering.MavenResourcesExecution;
  * 
  * @blog http://www.randomnoun.com/wp/2021/06/29/swagger-combine/
  */
-@Mojo (name = "swagger-combine", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
+@Mojo (name = "yaml-combine", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 
 public class YamlCombineMojo
     extends AbstractMojo
@@ -141,7 +141,7 @@ public class YamlCombineMojo
      * @return The instance of File for the created archive file.
      * @throws MojoExecutionException in case of an error.
      */
-	public File createCombinedSwaggerYaml() throws MojoExecutionException {
+	public File createCombinedYaml() throws MojoExecutionException {
 		if (outputDirectory == null) {
 			throw new IllegalArgumentException("Missing outputDirectory");
 		}
@@ -161,7 +161,7 @@ public class YamlCombineMojo
 			throw new MojoExecutionException(destFile + " is not writable.");
 		}
 
-		getLog().info("Creating combined swagger file " + destFile.getAbsolutePath());
+		getLog().info("Creating combined yaml file " + destFile.getAbsolutePath());
 
 		if (!destFile.getParentFile().exists()) {
 			// create the parent directory...
@@ -202,7 +202,7 @@ public class YamlCombineMojo
 		        // after about 15 levels of indirection they end up not-properly wrapping slf4j anyway.
 		        // ( see https://maven.apache.org/ref/3.6.0/maven-embedder/apidocs/org/apache/maven/cli/logging/Slf4jLoggerManager.html )
 		        ConsoleLoggerManager clm = new ConsoleLoggerManager();
-		        Logger logger = clm.getLoggerForComponent("SwaggerCombineMojo");
+		        Logger logger = clm.getLoggerForComponent("YamlCombineMojo");
 		        
 		        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter();
 		        dmff.enableLogging(logger); // filter will NPE if this isn't set
@@ -219,7 +219,7 @@ public class YamlCombineMojo
 			sc.combine(w);
 		} catch (IOException ioe) {
 			// trouble at the mill
-			throw new MojoExecutionException("Could not create combined swagger file", ioe); 
+			throw new MojoExecutionException("Could not create combined yaml file", ioe); 
 		} finally {
 			if (fos != null) {
 				try {
@@ -237,7 +237,7 @@ public class YamlCombineMojo
     public void execute()
         throws MojoExecutionException
     {
-    	createCombinedSwaggerYaml();
+    	createCombinedYaml();
     }
     
 

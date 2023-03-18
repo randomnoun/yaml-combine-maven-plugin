@@ -6,9 +6,9 @@
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	
-	<description>Combines swagger yaml files in ways that swagger doesn't normally allow.</description>
+	<description>Combines yaml files in ways that swagger doesn't normally allow.</description>
 	<url>https://github.com/randomnoun/swagger-combine-maven-plugin</url>
-	<name>Swagger combiner maven plugin</name>
+	<name>YAML combiner maven plugin</name>
 	<inceptionYear>2021</inceptionYear>
 
 	<dependencies>
