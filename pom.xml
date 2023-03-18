@@ -2,8 +2,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.randomnoun.maven.plugins</groupId>
-	<artifactId>swagger-combine-maven-plugin</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<artifactId>yaml-combine-maven-plugin</artifactId>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	
 	<description>Combines swagger yaml files in ways that swagger doesn't normally allow.</description>
@@ -134,9 +134,8 @@
 	
 	<scm>
 		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</connection>
-		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-plugin.git</developerConnection>
+		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</developerConnection>
 		<url>http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin</url>
-        <tag>swagger-combine-maven-plugin-1.0.1</tag>
     </scm>
   
 	<ciManagement>
@@ -173,7 +172,7 @@
 	</developers>
 
 	<build>
-		<finalName>swagger-combine-maven-plugin</finalName>
+		<finalName>yaml-combine-maven-plugin</finalName>
 
 		<!-- Build with Java 1.6 until that doesn't work -->
 		<pluginManagement>
@@ -316,9 +315,9 @@
                 <artifactId>maven-project-info-reports-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
-		          <webAccessUrl>https://github.com/randomnoun/swagger-combine-maven-plugin</webAccessUrl>
-		          <anonymousConnection>scm:git:ssh://git@github.com:randomnoun/swagger-combine-maven-plugin.git</anonymousConnection>
-		          <developerConnection>scm:git:ssh://git@github.com:randomnoun/swagger-combine-maven-plugin.git</developerConnection>
+		          <webAccessUrl>https://github.com/randomnoun/yaml-combine-maven-plugin</webAccessUrl>
+		          <anonymousConnection>scm:git:ssh://git@github.com:randomnoun/yaml-combine-maven-plugin.git</anonymousConnection>
+		          <developerConnection>scm:git:ssh://git@github.com:randomnoun/yaml-combine-maven-plugin.git</developerConnection>
 		        </configuration>
             </plugin>     
             <plugin>
@@ -382,7 +381,7 @@
 	    </snapshotRepository>
 		<site>
         	<id>gh-pages</id>
-        	<name>swagger-combine-maven-plugin Website</name>
+        	<name>yaml-combine-maven-plugin Website</name>
 	        <url>git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git?gh-pages#</url>
     	</site>
 	</distributionManagement>
