@@ -27,7 +27,7 @@ import org.apache.maven.shared.filtering.MavenResourcesExecution;
 /**
  * Maven goal which combines a bunch of yaml files into a big yaml file.
  * 
- * @blog http://www.randomnoun.com/wp/2021/06/06/something-yet-be-written/
+ * @blog http://www.randomnoun.com/wp/2021/06/29/swagger-combine/
  */
 @Mojo (name = "swagger-combine", defaultPhase = LifecyclePhase.GENERATE_SOURCES)
 
