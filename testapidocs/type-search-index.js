@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"com.randomnoun.maven.plugin.swaggerCombine","l":"TestCombine"}]
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.randomnoun.maven.plugin.yamlCombine","l":"TestCombine"}];updateSearchResults();

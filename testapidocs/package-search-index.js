@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.randomnoun.maven.plugin.swaggerCombine"}]
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.randomnoun.maven.plugin.yamlCombine"}];updateSearchResults();
