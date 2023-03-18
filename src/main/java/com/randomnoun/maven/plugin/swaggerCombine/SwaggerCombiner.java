@@ -87,7 +87,7 @@ public class SwaggerCombiner {
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	public void merge(Map<Object, Object> mergedObj, Map<Object, Object> obj, String f, String prefix)
+	private void merge(Map<Object, Object> mergedObj, Map<Object, Object> obj, String f, String prefix)
 			throws IllegalArgumentException {
 		Set<Object> cloneSet = new LinkedHashSet<Object>(obj.keySet());
 		for (Object k : cloneSet) {
@@ -107,13 +107,13 @@ public class SwaggerCombiner {
 				mergedObj.put(k, v);
 			} else {
 				throw new IllegalArgumentException("Could not merge " + f + "#" + prefix + String.valueOf(k) + 
-					" (" + v.getClass().getName() + " ) into merged object " + mv.getClass().getName());
+					" (" + v.getClass().getName() + ") into merged object " + mv.getClass().getName());
 			}
 		}
 	}
 
 	@SuppressWarnings("unchecked")
-	public Object replaceRefs(Map<Object, Object> obj, File relativeDir, String spacePrefix)
+	private Object replaceRefs(Map<Object, Object> obj, File relativeDir, String spacePrefix)
 			throws IllegalArgumentException, IOException {
 		// process $xref before other keys
 		Object result = null;
@@ -155,7 +155,7 @@ public class SwaggerCombiner {
 					} else {
 						throw new IllegalArgumentException(
 							"Could not override " + String.valueOf(k) + " (" + v.getClass().getName() +
-							" ) into xref '" + xref + "' " + result.getClass().getName());
+							") from xref '" + xref + "' " + result.getClass().getName());
 					}
 				}
 			}
@@ -184,7 +184,7 @@ public class SwaggerCombiner {
 		return result;
 	}
 
-	public Object getXref(File relativeDir, String ref) throws IllegalArgumentException, IOException {
+	private Object getXref(File relativeDir, String ref) throws IllegalArgumentException, IOException {
 		// myproject-v1-object.yaml#/definitions/InvalidResponse       existing
 		// myproject-v1-swagger-api.yaml#/paths/~1authenticate         the JSON-Pointer way
 		// myproject-v1-swagger-api.yaml#/paths/%2Fauthenticate        the url escape way
@@ -260,7 +260,7 @@ public class SwaggerCombiner {
 									"Could not find " + definitionPath + " in contents of " + file);
 						}
 					} catch (ClassCastException cce) {
-						throw new IllegalArgumentException("Could not find descend into " + jsonPathElement + " of "
+						throw new IllegalArgumentException("Could not descend into " + jsonPathElement + " of "
 								+ definitionPath + " in contents of " + file);
 					}
 					// getLog().info("jsonPathElement is " + node);
