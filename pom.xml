@@ -3,7 +3,7 @@
 	
 	<groupId>com.randomnoun.maven.plugins</groupId>
 	<artifactId>swagger-combine-maven-plugin</artifactId>
-	<version>1.0.7</version>
+	<version>1.0.8-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	
 	<description>
@@ -138,7 +138,7 @@
 		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</connection>
 		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-plugin.git</developerConnection>
 		<url>http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin</url>
-        <tag>swagger-combine-maven-plugin-1.0.7</tag>
+        <tag>swagger-combine-maven-plugin-1.0.1</tag>
     </scm>
   
 	<ciManagement>
