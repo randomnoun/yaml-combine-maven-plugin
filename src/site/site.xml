@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="randomnoun swagger-combine-maven-plugin"
+<project name="randomnoun yaml-combine-maven-plugin"
   xmlns="http://maven.apache.org/DECORATION/1.3.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/DECORATION/1.3.0 http://maven.apache.org/xsd/decoration-1.3.0.xsd">
@@ -155,7 +155,7 @@ Those files can then be used to generate even more code using the
   
     <links>
       <item name="Download" href="index.html#Usage" />
-      <item name="Github" href="https://github.com/randomnoun/swagger-combine-maven-plugin" />
+      <item name="Github" href="https://github.com/randomnoun/yaml-combine-maven-plugin" />
     </links>
 
     <breadcrumbs>

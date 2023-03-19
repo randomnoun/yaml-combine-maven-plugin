@@ -13,7 +13,7 @@ It does this by adding a new reference type called `$xref` which is identical to
 * you can add or override keys in the referenced objects
 * the syntax allows forward slashes in path keys to appear as forward slashes
 
-[The maven documentation for the plugin is here](https://randomnoun.github.io/swagger-combine-maven-plugin/)
+[The maven documentation for the plugin is here](https://randomnoun.github.io/yaml-combine-maven-plugin/)
 
 And there's a [blog article here](http://www.randomnoun.com/wp/2021/06/29/swagger-combine/).
 
@@ -73,7 +73,7 @@ Files can continue to use `$ref` references, and these references will survive t
 
 ## Examples
 
-There's a handful of examples in the [site documentation for the plugin](https://randomnoun.github.io/swagger-combine-maven-plugin/)
+There's a handful of examples in the [site documentation for the plugin](https://randomnoun.github.io/yaml-combine-maven-plugin/)
 
 Here's you how might use this plugin in your pom.xml file:
 

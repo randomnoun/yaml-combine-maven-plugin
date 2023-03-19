@@ -7,7 +7,7 @@
 	<packaging>maven-plugin</packaging>
 	
 	<description>Combines yaml files in ways that swagger doesn't normally allow.</description>
-	<url>https://github.com/randomnoun/swagger-combine-maven-plugin</url>
+	<url>https://github.com/randomnoun/yaml-combine-maven-plugin</url>
 	<name>YAML combiner maven plugin</name>
 	<inceptionYear>2021</inceptionYear>
 
@@ -121,15 +121,15 @@
 	</dependencies>
 	
 	<scm>
-		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</connection>
-		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git</developerConnection>
-		<url>http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin</url>
+		<connection>scm:git:http://gitlab.dev.randomnoun/randomnoun/yaml-combine-maven-plugin.git</connection>
+		<developerConnection>scm:git:http://gitlab.dev.randomnoun/randomnoun/yaml-combine-maven-plugin.git</developerConnection>
+		<url>http://gitlab.dev.randomnoun/randomnoun/yaml-combine-maven-plugin</url>
       <tag>HEAD</tag>
   </scm>
   
 	<ciManagement>
 		<system>Bamboo</system>
-		<url>http://bamboo.dev.randomnoun/browse/RANDOMNOUN-SWAGGERCOMBINEMAVENPLUGIN</url>
+		<url>http://bamboo.dev.randomnoun/browse/RANDOMNOUN-YAMLCOMBINEMAVENPLUGIN</url>
 	</ciManagement>
 	<licenses>
 		<license>
@@ -339,7 +339,7 @@
 		<site>
         	<id>gh-pages</id>
         	<name>yaml-combine-maven-plugin Website</name>
-	        <url>git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git?gh-pages#</url>
+	        <url>git:http://gitlab.dev.randomnoun/randomnoun/yaml-combine-maven-plugin.git?gh-pages#</url>
     	</site>
 	</distributionManagement>
 

@@ -42,7 +42,7 @@ and you may want to import objects in other locations.
 but it is not limitted to just processing swagger files.  
 
 <p>Details on using <b>$xref</b>s can be found on the
-<a href="https://github.com/randomnoun/swagger-combine-maven-plugin">github README</a>.
+<a href="https://github.com/randomnoun/yaml-combine-maven-plugin">github README</a>.
  
 <p>Some more specific use cases are described in the examples below.
 
