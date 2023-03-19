@@ -2,13 +2,15 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>com.randomnoun.maven.plugins</groupId>
-    <artifactId>yaml-combine-maven-plugin</artifactId>
-    <version>2.0.2-SNAPSHOT</version>
+	<artifactId>swagger-combine-maven-plugin</artifactId>
+	<version>1.0.4-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     
-    <description>Combines yaml files in ways that swagger doesn't normally allow.</description>
+	<description>
+    This maven plugin now has the artifactId yaml-combine-maven-plugin; please use that instead.        
+    </description>
     <url>https://github.com/randomnoun/swagger-combine-maven-plugin</url>
-    <name>YAML combiner maven plugin</name>
+	<name>Swagger combiner maven plugin</name>
     <inceptionYear>2021</inceptionYear>
 
     <dependencies>
@@ -161,9 +163,7 @@
     </developers>
 
     <build>
-        <finalName>yaml-combine-maven-plugin</finalName>
-
-        <!-- Build with Java 7 until that doesn't work -->
+		<finalName>swagger-combine-maven-plugin</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -338,9 +338,14 @@
         </snapshotRepository>
         <site>
             <id>gh-pages</id>
-            <name>yaml-combine-maven-plugin Website</name>
+        	<name>swagger-combine-maven-plugin Website</name>
             <url>git:http://gitlab.dev.randomnoun/randomnoun/swagger-combine-maven-plugin.git?gh-pages#</url>
         </site>
+    	
+    	<relocation>
+            <groupId>com.randomnoun.maven.plugins</groupId>
+            <artifactId>yaml-combine-maven-plugin</artifactId>
+        </relocation>
     </distributionManagement>
 
     <properties>
