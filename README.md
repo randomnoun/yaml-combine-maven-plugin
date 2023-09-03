@@ -1,3 +1,5 @@
+[![Maven Central](https://img.shields.io/maven-central/v/com.randomnoun.maven.plugins/yaml-combine-maven-plugin.svg)](https://search.maven.org/artifact/com.randomnoun.maven.plugins/yaml-combine-maven-plugin)
+
 # yaml-combine-maven-plugin
 
 This project provides a source pre-processor which can be used to combine one or more YAML files before swagger code generation.
