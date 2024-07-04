@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,9 @@ import java.util.function.IntConsumer;
 
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.shared.utils.io.FileUtils.FilterWrapper;
+import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.representer.Representer;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -45,13 +48,22 @@ public class YamlCombiner {
 
 	private Map<String, Map<String, Object>> yamlFiles = new HashMap<String, Map<String, Object>>();
 
+	private Yaml newYaml() {
+		DumperOptions options = new DumperOptions();
+        CustomPropertyUtils customPropertyUtils = new CustomPropertyUtils();
+        Representer customRepresenter = new Representer();
+        customRepresenter.setPropertyUtils(customPropertyUtils);
+        Yaml yaml = new Yaml(customRepresenter, options);
+        return yaml;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void combine(Writer w) throws IOException {
 
 		List<String> fileList = new ArrayList<String>(Arrays.asList(files));
 		Collections.sort(fileList);
 		
-		Yaml yaml = new Yaml();
+		Yaml yaml = newYaml();
 		@SuppressWarnings("rawtypes")
 		Map mergedObj = null;
 		for (String f : fileList) {
@@ -125,7 +137,7 @@ public class YamlCombiner {
 			result = getXref(relativeDir, (String) xref);
 			if (result instanceof Map) {
 				// shallow clone, but replaceRefs will perform shallow clones at deeper levels
-				result = new HashMap<Object, Object>((Map<Object, Object>) result);
+				result = new LinkedHashMap<Object, Object>((Map<Object, Object>) result);
 				result = replaceRefs((Map<Object, Object>) result, relativeDir, spacePrefix + "  ");
 			}
 
@@ -173,7 +185,7 @@ public class YamlCombiner {
 				}
 				if (v instanceof Map) {
 					// shallow clone, but replaceRefs will perform shallow clones at deeper levels
-					Map<Object, Object> clone = new HashMap<Object, Object>((Map<Object, Object>) v);
+					Map<Object, Object> clone = new LinkedHashMap<Object, Object>((Map<Object, Object>) v);
 					Object newObject = replaceRefs(clone, relativeDir, spacePrefix + "  ");
 					obj.put(k, newObject);
 				}
@@ -233,7 +245,7 @@ public class YamlCombiner {
 			final String definitionPath = refParts.length == 2 ? refParts[1] : null;
 			Map<String, Object> contents = yamlFiles.get(file);
 			if (contents == null) {
-				Yaml yaml = new Yaml();
+				Yaml yaml = newYaml();
 				File inputFile = new File(relativeDir, file);
 				InputStream inputStream = new FileInputStream(inputFile);
 				try {
