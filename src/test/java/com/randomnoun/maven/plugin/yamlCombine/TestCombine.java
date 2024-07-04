@@ -34,7 +34,7 @@ public class TestCombine extends  TestCase {
         List<String> expectedLines = Files.readAllLines(expectedPath);
         
         List<String> lines = Arrays.asList(w.toString().split("\n"));
-
+        
         Assert.assertEquals(expectedLines, lines);
 	}
 	
@@ -92,6 +92,7 @@ public class TestCombine extends  TestCase {
 
         StringWriter w = new StringWriter();
         sc.combine(w);
+        System.out.println(w.toString());
 
         Path expectedPath = new File("src/test/resources/t4/expected-output.yaml").toPath();
         List<String> expectedLines = Files.readAllLines(expectedPath);
