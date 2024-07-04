@@ -42,7 +42,7 @@
 <a class="jxr_linenumber" name="L34" href="#L34">34</a>          List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);
 <a class="jxr_linenumber" name="L35" href="#L35">35</a>          
 <a class="jxr_linenumber" name="L36" href="#L36">36</a>          List&lt;String&gt; lines = Arrays.asList(w.toString().split(<span class="jxr_string">"\n"</span>));
-<a class="jxr_linenumber" name="L37" href="#L37">37</a>  
+<a class="jxr_linenumber" name="L37" href="#L37">37</a>          
 <a class="jxr_linenumber" name="L38" href="#L38">38</a>          Assert.assertEquals(expectedLines, lines);
 <a class="jxr_linenumber" name="L39" href="#L39">39</a>  	}
 <a class="jxr_linenumber" name="L40" href="#L40">40</a>  	
@@ -100,20 +100,21 @@
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>          StringWriter w = <strong class="jxr_keyword">new</strong> StringWriter();
 <a class="jxr_linenumber" name="L94" href="#L94">94</a>          sc.combine(w);
-<a class="jxr_linenumber" name="L95" href="#L95">95</a>  
-<a class="jxr_linenumber" name="L96" href="#L96">96</a>          Path expectedPath = <strong class="jxr_keyword">new</strong> File(<span class="jxr_string">"src/test/resources/t4/expected-output.yaml"</span>).toPath();
-<a class="jxr_linenumber" name="L97" href="#L97">97</a>          List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);
-<a class="jxr_linenumber" name="L98" href="#L98">98</a>          
-<a class="jxr_linenumber" name="L99" href="#L99">99</a>          List&lt;String&gt; lines = Arrays.asList(w.toString().split(<span class="jxr_string">"\n"</span>));
-<a class="jxr_linenumber" name="L100" href="#L100">100</a> 
-<a class="jxr_linenumber" name="L101" href="#L101">101</a>         Assert.assertEquals(expectedLines, lines);
-<a class="jxr_linenumber" name="L102" href="#L102">102</a> 	}
-<a class="jxr_linenumber" name="L103" href="#L103">103</a> 	
+<a class="jxr_linenumber" name="L95" href="#L95">95</a>          System.out.println(w.toString());
+<a class="jxr_linenumber" name="L96" href="#L96">96</a>  
+<a class="jxr_linenumber" name="L97" href="#L97">97</a>          Path expectedPath = <strong class="jxr_keyword">new</strong> File(<span class="jxr_string">"src/test/resources/t4/expected-output.yaml"</span>).toPath();
+<a class="jxr_linenumber" name="L98" href="#L98">98</a>          List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);
+<a class="jxr_linenumber" name="L99" href="#L99">99</a>          
+<a class="jxr_linenumber" name="L100" href="#L100">100</a>         List&lt;String&gt; lines = Arrays.asList(w.toString().split(<span class="jxr_string">"\n"</span>));
+<a class="jxr_linenumber" name="L101" href="#L101">101</a> 
+<a class="jxr_linenumber" name="L102" href="#L102">102</a>         Assert.assertEquals(expectedLines, lines);
+<a class="jxr_linenumber" name="L103" href="#L103">103</a> 	}
 <a class="jxr_linenumber" name="L104" href="#L104">104</a> 	
 <a class="jxr_linenumber" name="L105" href="#L105">105</a> 	
-<a class="jxr_linenumber" name="L106" href="#L106">106</a> }
+<a class="jxr_linenumber" name="L106" href="#L106">106</a> 	
+<a class="jxr_linenumber" name="L107" href="#L107">107</a> }
 </pre>
 <hr/>
-<div id="footer">Copyright &#169; 2021&#x2013;2023 <a href="http://www.randomnoun.com">randomnoun</a>. All rights reserved.</div>
+<div id="footer">Copyright &#169; 2021&#x2013;2024 <a href="http://www.randomnoun.com">randomnoun</a>. All rights reserved.</div>
 </body>
 </html>

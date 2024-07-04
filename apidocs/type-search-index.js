@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.randomnoun.maven.plugin.yamlCombine","l":"YamlCombineMojo"},{"p":"com.randomnoun.maven.plugin.yamlCombine","l":"YamlCombiner"}];updateSearchResults();
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"com.randomnoun.maven.plugin.yamlCombine","l":"CustomPropertyUtils"},{"p":"com.randomnoun.maven.plugin.yamlCombine","l":"YamlCombineMojo"},{"p":"com.randomnoun.maven.plugin.yamlCombine","l":"YamlCombiner"}];updateSearchResults();
