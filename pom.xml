@@ -326,10 +326,10 @@
 
 	<distributionManagement>
 	    <repository>
-	        <id>releases</id>
-	        <name>randomnoun releases</name>
-	        <url>http://nexus2.dev.randomnoun/nexus/content/repositories/releases/</url>
-	    </repository>
+          <id>github-maven-pkg</id>
+          <name>gihub package repository</name>
+          <url>https://maven.pkg.github.com/randomnoun/yaml-combine-maven-plugin</url>
+        </repository>
 	    <snapshotRepository>
 	        <id>snapshots</id>
 	        <name>randomnoun snapshots</name>
@@ -341,6 +341,7 @@
         	<name>yaml-combine-maven-plugin Website</name>
 	        <url>git:http://gitlab.dev.randomnoun/randomnoun/yaml-combine-maven-plugin.git?gh-pages#</url>
     	</site>
+    	
 	</distributionManagement>
 
 	<properties>
