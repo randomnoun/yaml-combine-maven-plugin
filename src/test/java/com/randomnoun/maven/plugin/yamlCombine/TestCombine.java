@@ -101,7 +101,25 @@ public class TestCombine extends  TestCase {
 
         Assert.assertEquals(expectedLines, lines);
 	}
-	
-	
+
+    // parse top level $xref to copy whole yaml
+    public void test5() throws IOException {
+        Log log = new SystemStreamLog();
+
+        YamlCombiner sc = new YamlCombiner();
+        sc.setRelativeDir(new File("src/test/resources/t5"));
+        sc.setFiles(new String[] { "input.yaml" });
+        sc.setLog(log);
+
+        StringWriter w = new StringWriter();
+        sc.combine(w);
+
+        Path expectedPath = new File("src/test/resources/t5/expected-output.yaml").toPath();
+        List<String> expectedLines = Files.readAllLines(expectedPath);
+
+        List<String> lines = Arrays.asList(w.toString().split("\n"));
+
+        Assert.assertEquals(expectedLines, lines);
+    }
 	
 }

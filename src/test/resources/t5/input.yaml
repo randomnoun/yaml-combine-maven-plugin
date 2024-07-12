@@ -1,0 +1,10 @@
+# uses paths.yaml as base and merges these changes to it
+$xref: 'paths.yaml#/'
+paths:
+  /thing:
+    post:
+      parameters:
+        old-parameter:
+          description: some old parameter whose definition has changed
+        new-parameter:
+          description: the new parameter in v2 of the API that isn't in v1
