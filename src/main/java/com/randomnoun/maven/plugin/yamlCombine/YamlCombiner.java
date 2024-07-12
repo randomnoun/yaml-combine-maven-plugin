@@ -87,7 +87,7 @@ public class YamlCombiner {
 		// and to make it more obvious that this isn't a valid swagger file
 
 		// this is definitely a constructive use of my weekend
-		replaceRefs((Map<Object, Object>) mergedObj, relativeDir, "");
+		mergedObj = (Map<Object, Object>) replaceRefs((Map<Object, Object>) mergedObj, relativeDir, "");
 
 		final ObjectMapper mapper = new ObjectMapper(
 			new YAMLFactory().configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, true)

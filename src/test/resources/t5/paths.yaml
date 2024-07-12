@@ -1,0 +1,44 @@
+paths:
+  /thing:
+    get:
+      operationId: getThings
+      description: get all the things
+      parameters:
+      responses:
+        200:
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            status:
+              description: OK
+              type: string
+            thing:
+              type: array
+              items:
+                $ref: 'objects.yaml#/definitions/ThingObject'
+    post:
+      operationId: addThing
+      description: |
+        Adds a new `Thing`.
+        * Things must be uniquely identifiable by `name`.
+        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
+      parameters:
+        thing:
+          $ref: 'objects.yaml#/definitions/ThingObject'
+        old-parameter:
+          description: this description will be overridden in input.yaml
+      responses:
+        200:
+        schema:
+          type: object
+          title: getThingsOKResponse
+          properties:
+            status:
+              description: OK
+              type: string
+            thing:
+              type: array
+              items:
+                $ref: 'objects.yaml#/definitions/ThingObject'
+    
