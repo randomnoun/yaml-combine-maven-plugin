@@ -95,7 +95,7 @@
 <a class="jxr_linenumber" name="L87" href="#L87">87</a>  		<em class="jxr_comment">// and to make it more obvious that this isn't a valid swagger file</em>
 <a class="jxr_linenumber" name="L88" href="#L88">88</a>  
 <a class="jxr_linenumber" name="L89" href="#L89">89</a>  		<em class="jxr_comment">// this is definitely a constructive use of my weekend</em>
-<a class="jxr_linenumber" name="L90" href="#L90">90</a>  		replaceRefs((Map&lt;Object, Object&gt;) mergedObj, relativeDir, <span class="jxr_string">""</span>);
+<a class="jxr_linenumber" name="L90" href="#L90">90</a>  		mergedObj = (Map&lt;Object, Object&gt;) replaceRefs((Map&lt;Object, Object&gt;) mergedObj, relativeDir, <span class="jxr_string">""</span>);
 <a class="jxr_linenumber" name="L91" href="#L91">91</a>  
 <a class="jxr_linenumber" name="L92" href="#L92">92</a>  		<strong class="jxr_keyword">final</strong> ObjectMapper mapper = <strong class="jxr_keyword">new</strong> ObjectMapper(
 <a class="jxr_linenumber" name="L93" href="#L93">93</a>  			<strong class="jxr_keyword">new</strong> YAMLFactory().configure(YAMLGenerator.Feature.MINIMIZE_QUOTES, <strong class="jxr_keyword">true</strong>)
