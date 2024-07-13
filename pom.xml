@@ -233,7 +233,7 @@
 				<plugin>
                     <groupId>com.ragedunicorn.tools.maven</groupId>
                     <artifactId>github-release-maven-plugin</artifactId>
-                    <version>1.0.6</version>
+                    <version>1.0.7</version>
                     <executions>
                       <execution>
                         <id>default-cli</id>
@@ -243,7 +243,7 @@
                           <server>github-release-token</server>
                           <tagName>v${project.version}</tagName>
                           <name>v${project.version}</name>
-                          <targetCommitish>main</targetCommitish>
+                          <targetCommitish>master</targetCommitish>
                           <releaseNotes>src/site/release-notes.md</releaseNotes>
                         </configuration>
                       </execution>

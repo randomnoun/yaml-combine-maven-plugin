@@ -2,7 +2,7 @@
 
 ## Updates
 
-* allow $xref at top level (from ZorpEngur)
+* allow $xref at top level (ZorpEngur: #1)
 
 # 2.0.2
 
