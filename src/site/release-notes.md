@@ -1,5 +1,3 @@
 ## Updates
 
-* First github package
-* Preserve YAML key order
-
+* allow $xref at top level (from ZorpEngur)
