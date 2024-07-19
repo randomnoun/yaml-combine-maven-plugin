@@ -187,6 +187,7 @@ public class YamlCombineMojo
 			sc.setRelativeDir(new File(fileset.getDirectory()));
 			sc.setFiles(files);
 			sc.setLog(getLog());
+			sc.setVerbose(verbose);
 			
 			fos = new FileOutputStream(destFile);
 			if (filtering) {
