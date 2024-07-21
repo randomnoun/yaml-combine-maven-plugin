@@ -51,7 +51,7 @@ public class YamlCombiner {
 	private Yaml newYaml() {
 		DumperOptions options = new DumperOptions();
         CustomPropertyUtils customPropertyUtils = new CustomPropertyUtils();
-        Representer customRepresenter = new Representer();
+        Representer customRepresenter = new Representer(options);
         customRepresenter.setPropertyUtils(customPropertyUtils);
         Yaml yaml = new Yaml(customRepresenter, options);
         return yaml;
