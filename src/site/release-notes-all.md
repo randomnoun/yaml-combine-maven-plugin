@@ -1,3 +1,10 @@
+# 2.0.4
+
+## Updates
+
+* update dependencies; fix verbose flag (nathanaelweber: #2)
+
+
 # 2.0.3
 
 ## Updates

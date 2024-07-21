@@ -1,3 +1,3 @@
 ## Updates
 
-* allow $xref at top level (ZorpEngur: #1)
+* update dependencies; fix verbose flag (nathanaelweber: #2)
