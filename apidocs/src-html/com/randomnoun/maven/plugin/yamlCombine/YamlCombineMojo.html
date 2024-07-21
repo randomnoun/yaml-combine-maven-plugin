@@ -200,109 +200,110 @@
 <span class="source-line-no">187</span><span id="line-187">                        sc.setRelativeDir(new File(fileset.getDirectory()));</span>
 <span class="source-line-no">188</span><span id="line-188">                        sc.setFiles(files);</span>
 <span class="source-line-no">189</span><span id="line-189">                        sc.setLog(getLog());</span>
-<span class="source-line-no">190</span><span id="line-190">                        </span>
-<span class="source-line-no">191</span><span id="line-191">                        fos = new FileOutputStream(destFile);</span>
-<span class="source-line-no">192</span><span id="line-192">                        if (filtering) {</span>
-<span class="source-line-no">193</span><span id="line-193">                                MavenResourcesExecution mre = new MavenResourcesExecution();</span>
-<span class="source-line-no">194</span><span id="line-194">                        mre.setMavenProject( project );</span>
-<span class="source-line-no">195</span><span id="line-195">                        mre.setFileFilters( null );</span>
-<span class="source-line-no">196</span><span id="line-196">                        mre.setEscapeWindowsPaths( true );</span>
-<span class="source-line-no">197</span><span id="line-197">                        mre.setMavenSession( session );</span>
-<span class="source-line-no">198</span><span id="line-198">                        mre.setInjectProjectBuildFilters( true );</span>
-<span class="source-line-no">199</span><span id="line-199">                        </span>
-<span class="source-line-no">200</span><span id="line-200">                        // there's probably a better way of getting a plexus Logger instance</span>
-<span class="source-line-no">201</span><span id="line-201">                        // but for the life of me I can't work it out </span>
-<span class="source-line-no">202</span><span id="line-202">                        // after about 15 levels of indirection they end up not-properly wrapping slf4j anyway.</span>
-<span class="source-line-no">203</span><span id="line-203">                        // ( see https://maven.apache.org/ref/3.6.0/maven-embedder/apidocs/org/apache/maven/cli/logging/Slf4jLoggerManager.html )</span>
-<span class="source-line-no">204</span><span id="line-204">                        ConsoleLoggerManager clm = new ConsoleLoggerManager();</span>
-<span class="source-line-no">205</span><span id="line-205">                        Logger logger = clm.getLoggerForComponent("YamlCombineMojo");</span>
-<span class="source-line-no">206</span><span id="line-206">                        </span>
-<span class="source-line-no">207</span><span id="line-207">                        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter();</span>
-<span class="source-line-no">208</span><span id="line-208">                        dmff.enableLogging(logger); // filter will NPE if this isn't set</span>
-<span class="source-line-no">209</span><span id="line-209">                        getLog().info("logger is " + logger);</span>
-<span class="source-line-no">210</span><span id="line-210">                                try {</span>
-<span class="source-line-no">211</span><span id="line-211">                                        List&lt;FileUtils.FilterWrapper&gt; filterWrappers = dmff.getDefaultFilterWrappers( mre );</span>
-<span class="source-line-no">212</span><span id="line-212">                                        sc.setFilterWrappers(filterWrappers);</span>
-<span class="source-line-no">213</span><span id="line-213">                                } catch (MavenFilteringException e) {</span>
-<span class="source-line-no">214</span><span id="line-214">                                        throw new IllegalStateException("Coult not get default filter wrappers", e);</span>
-<span class="source-line-no">215</span><span id="line-215">                                }</span>
-<span class="source-line-no">216</span><span id="line-216">                        }</span>
-<span class="source-line-no">217</span><span id="line-217">                        </span>
-<span class="source-line-no">218</span><span id="line-218">                        PrintWriter w = new PrintWriter(fos);</span>
-<span class="source-line-no">219</span><span id="line-219">                        sc.combine(w);</span>
-<span class="source-line-no">220</span><span id="line-220">                } catch (IOException ioe) {</span>
-<span class="source-line-no">221</span><span id="line-221">                        // trouble at the mill</span>
-<span class="source-line-no">222</span><span id="line-222">                        throw new MojoExecutionException("Could not create combined yaml file", ioe); </span>
-<span class="source-line-no">223</span><span id="line-223">                } finally {</span>
-<span class="source-line-no">224</span><span id="line-224">                        if (fos != null) {</span>
-<span class="source-line-no">225</span><span id="line-225">                                try {</span>
-<span class="source-line-no">226</span><span id="line-226">                                        fos.close();</span>
-<span class="source-line-no">227</span><span id="line-227">                                } catch(IOException ioe) {</span>
-<span class="source-line-no">228</span><span id="line-228">                                        throw new IllegalStateException("IOException closing file", ioe);</span>
-<span class="source-line-no">229</span><span id="line-229">                                }</span>
-<span class="source-line-no">230</span><span id="line-230">                        }</span>
-<span class="source-line-no">231</span><span id="line-231">                }</span>
-<span class="source-line-no">232</span><span id="line-232">                return destFile;</span>
-<span class="source-line-no">233</span><span id="line-233"></span>
-<span class="source-line-no">234</span><span id="line-234">        }</span>
-<span class="source-line-no">235</span><span id="line-235">   </span>
-<span class="source-line-no">236</span><span id="line-236">    </span>
-<span class="source-line-no">237</span><span id="line-237">    public void execute()</span>
-<span class="source-line-no">238</span><span id="line-238">        throws MojoExecutionException</span>
-<span class="source-line-no">239</span><span id="line-239">    {</span>
-<span class="source-line-no">240</span><span id="line-240">        createCombinedYaml();</span>
-<span class="source-line-no">241</span><span id="line-241">    }</span>
-<span class="source-line-no">242</span><span id="line-242">    </span>
-<span class="source-line-no">243</span><span id="line-243"></span>
-<span class="source-line-no">244</span><span id="line-244">    </span>
-<span class="source-line-no">245</span><span id="line-245">    // getters / setters</span>
-<span class="source-line-no">246</span><span id="line-246">    </span>
-<span class="source-line-no">247</span><span id="line-247">    /**</span>
-<span class="source-line-no">248</span><span id="line-248">     * {@inheritDoc}</span>
-<span class="source-line-no">249</span><span id="line-249">     */</span>
-<span class="source-line-no">250</span><span id="line-250">    protected Boolean getFiltering() {</span>
-<span class="source-line-no">251</span><span id="line-251">        return filtering;</span>
-<span class="source-line-no">252</span><span id="line-252">    }</span>
-<span class="source-line-no">253</span><span id="line-253">   </span>
-<span class="source-line-no">254</span><span id="line-254"></span>
-<span class="source-line-no">255</span><span id="line-255">    /**</span>
-<span class="source-line-no">256</span><span id="line-256">     * {@inheritDoc}</span>
-<span class="source-line-no">257</span><span id="line-257">     */</span>
-<span class="source-line-no">258</span><span id="line-258">    protected Boolean getVerbose() {</span>
-<span class="source-line-no">259</span><span id="line-259">        return verbose;</span>
-<span class="source-line-no">260</span><span id="line-260">    }</span>
-<span class="source-line-no">261</span><span id="line-261">    </span>
-<span class="source-line-no">262</span><span id="line-262">    /**</span>
-<span class="source-line-no">263</span><span id="line-263">     * @return the project</span>
-<span class="source-line-no">264</span><span id="line-264">     */</span>
-<span class="source-line-no">265</span><span id="line-265">    public MavenProject getProject() {</span>
-<span class="source-line-no">266</span><span id="line-266">        return project;</span>
-<span class="source-line-no">267</span><span id="line-267">    }</span>
-<span class="source-line-no">268</span><span id="line-268"></span>
-<span class="source-line-no">269</span><span id="line-269">    /**</span>
-<span class="source-line-no">270</span><span id="line-270">     * @param project</span>
-<span class="source-line-no">271</span><span id="line-271">     * the project to set</span>
-<span class="source-line-no">272</span><span id="line-272">     */</span>
-<span class="source-line-no">273</span><span id="line-273">    public void setProject(final MavenProject project) {</span>
-<span class="source-line-no">274</span><span id="line-274">        this.project = project;</span>
-<span class="source-line-no">275</span><span id="line-275">    }</span>
-<span class="source-line-no">276</span><span id="line-276"></span>
-<span class="source-line-no">277</span><span id="line-277">    /**</span>
-<span class="source-line-no">278</span><span id="line-278">     * @return the settings</span>
-<span class="source-line-no">279</span><span id="line-279">     */</span>
-<span class="source-line-no">280</span><span id="line-280">    public Settings getSettings() {</span>
-<span class="source-line-no">281</span><span id="line-281">        return settings;</span>
-<span class="source-line-no">282</span><span id="line-282">    }</span>
-<span class="source-line-no">283</span><span id="line-283"></span>
-<span class="source-line-no">284</span><span id="line-284">    /**</span>
-<span class="source-line-no">285</span><span id="line-285">     * @param settings</span>
-<span class="source-line-no">286</span><span id="line-286">     * the settings to set</span>
-<span class="source-line-no">287</span><span id="line-287">     */</span>
-<span class="source-line-no">288</span><span id="line-288">    public void setSettings(final Settings settings) {</span>
-<span class="source-line-no">289</span><span id="line-289">        this.settings = settings;</span>
-<span class="source-line-no">290</span><span id="line-290">    }</span>
-<span class="source-line-no">291</span><span id="line-291">    </span>
-<span class="source-line-no">292</span><span id="line-292">}</span>
+<span class="source-line-no">190</span><span id="line-190">                        sc.setVerbose(verbose);</span>
+<span class="source-line-no">191</span><span id="line-191">                        </span>
+<span class="source-line-no">192</span><span id="line-192">                        fos = new FileOutputStream(destFile);</span>
+<span class="source-line-no">193</span><span id="line-193">                        if (filtering) {</span>
+<span class="source-line-no">194</span><span id="line-194">                                MavenResourcesExecution mre = new MavenResourcesExecution();</span>
+<span class="source-line-no">195</span><span id="line-195">                        mre.setMavenProject( project );</span>
+<span class="source-line-no">196</span><span id="line-196">                        mre.setFileFilters( null );</span>
+<span class="source-line-no">197</span><span id="line-197">                        mre.setEscapeWindowsPaths( true );</span>
+<span class="source-line-no">198</span><span id="line-198">                        mre.setMavenSession( session );</span>
+<span class="source-line-no">199</span><span id="line-199">                        mre.setInjectProjectBuildFilters( true );</span>
+<span class="source-line-no">200</span><span id="line-200">                        </span>
+<span class="source-line-no">201</span><span id="line-201">                        // there's probably a better way of getting a plexus Logger instance</span>
+<span class="source-line-no">202</span><span id="line-202">                        // but for the life of me I can't work it out </span>
+<span class="source-line-no">203</span><span id="line-203">                        // after about 15 levels of indirection they end up not-properly wrapping slf4j anyway.</span>
+<span class="source-line-no">204</span><span id="line-204">                        // ( see https://maven.apache.org/ref/3.6.0/maven-embedder/apidocs/org/apache/maven/cli/logging/Slf4jLoggerManager.html )</span>
+<span class="source-line-no">205</span><span id="line-205">                        ConsoleLoggerManager clm = new ConsoleLoggerManager();</span>
+<span class="source-line-no">206</span><span id="line-206">                        Logger logger = clm.getLoggerForComponent("YamlCombineMojo");</span>
+<span class="source-line-no">207</span><span id="line-207">                        </span>
+<span class="source-line-no">208</span><span id="line-208">                        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter();</span>
+<span class="source-line-no">209</span><span id="line-209">                        dmff.enableLogging(logger); // filter will NPE if this isn't set</span>
+<span class="source-line-no">210</span><span id="line-210">                        getLog().info("logger is " + logger);</span>
+<span class="source-line-no">211</span><span id="line-211">                                try {</span>
+<span class="source-line-no">212</span><span id="line-212">                                        List&lt;FileUtils.FilterWrapper&gt; filterWrappers = dmff.getDefaultFilterWrappers( mre );</span>
+<span class="source-line-no">213</span><span id="line-213">                                        sc.setFilterWrappers(filterWrappers);</span>
+<span class="source-line-no">214</span><span id="line-214">                                } catch (MavenFilteringException e) {</span>
+<span class="source-line-no">215</span><span id="line-215">                                        throw new IllegalStateException("Coult not get default filter wrappers", e);</span>
+<span class="source-line-no">216</span><span id="line-216">                                }</span>
+<span class="source-line-no">217</span><span id="line-217">                        }</span>
+<span class="source-line-no">218</span><span id="line-218">                        </span>
+<span class="source-line-no">219</span><span id="line-219">                        PrintWriter w = new PrintWriter(fos);</span>
+<span class="source-line-no">220</span><span id="line-220">                        sc.combine(w);</span>
+<span class="source-line-no">221</span><span id="line-221">                } catch (IOException ioe) {</span>
+<span class="source-line-no">222</span><span id="line-222">                        // trouble at the mill</span>
+<span class="source-line-no">223</span><span id="line-223">                        throw new MojoExecutionException("Could not create combined yaml file", ioe); </span>
+<span class="source-line-no">224</span><span id="line-224">                } finally {</span>
+<span class="source-line-no">225</span><span id="line-225">                        if (fos != null) {</span>
+<span class="source-line-no">226</span><span id="line-226">                                try {</span>
+<span class="source-line-no">227</span><span id="line-227">                                        fos.close();</span>
+<span class="source-line-no">228</span><span id="line-228">                                } catch(IOException ioe) {</span>
+<span class="source-line-no">229</span><span id="line-229">                                        throw new IllegalStateException("IOException closing file", ioe);</span>
+<span class="source-line-no">230</span><span id="line-230">                                }</span>
+<span class="source-line-no">231</span><span id="line-231">                        }</span>
+<span class="source-line-no">232</span><span id="line-232">                }</span>
+<span class="source-line-no">233</span><span id="line-233">                return destFile;</span>
+<span class="source-line-no">234</span><span id="line-234"></span>
+<span class="source-line-no">235</span><span id="line-235">        }</span>
+<span class="source-line-no">236</span><span id="line-236">   </span>
+<span class="source-line-no">237</span><span id="line-237">    </span>
+<span class="source-line-no">238</span><span id="line-238">    public void execute()</span>
+<span class="source-line-no">239</span><span id="line-239">        throws MojoExecutionException</span>
+<span class="source-line-no">240</span><span id="line-240">    {</span>
+<span class="source-line-no">241</span><span id="line-241">        createCombinedYaml();</span>
+<span class="source-line-no">242</span><span id="line-242">    }</span>
+<span class="source-line-no">243</span><span id="line-243">    </span>
+<span class="source-line-no">244</span><span id="line-244"></span>
+<span class="source-line-no">245</span><span id="line-245">    </span>
+<span class="source-line-no">246</span><span id="line-246">    // getters / setters</span>
+<span class="source-line-no">247</span><span id="line-247">    </span>
+<span class="source-line-no">248</span><span id="line-248">    /**</span>
+<span class="source-line-no">249</span><span id="line-249">     * {@inheritDoc}</span>
+<span class="source-line-no">250</span><span id="line-250">     */</span>
+<span class="source-line-no">251</span><span id="line-251">    protected Boolean getFiltering() {</span>
+<span class="source-line-no">252</span><span id="line-252">        return filtering;</span>
+<span class="source-line-no">253</span><span id="line-253">    }</span>
+<span class="source-line-no">254</span><span id="line-254">   </span>
+<span class="source-line-no">255</span><span id="line-255"></span>
+<span class="source-line-no">256</span><span id="line-256">    /**</span>
+<span class="source-line-no">257</span><span id="line-257">     * {@inheritDoc}</span>
+<span class="source-line-no">258</span><span id="line-258">     */</span>
+<span class="source-line-no">259</span><span id="line-259">    protected Boolean getVerbose() {</span>
+<span class="source-line-no">260</span><span id="line-260">        return verbose;</span>
+<span class="source-line-no">261</span><span id="line-261">    }</span>
+<span class="source-line-no">262</span><span id="line-262">    </span>
+<span class="source-line-no">263</span><span id="line-263">    /**</span>
+<span class="source-line-no">264</span><span id="line-264">     * @return the project</span>
+<span class="source-line-no">265</span><span id="line-265">     */</span>
+<span class="source-line-no">266</span><span id="line-266">    public MavenProject getProject() {</span>
+<span class="source-line-no">267</span><span id="line-267">        return project;</span>
+<span class="source-line-no">268</span><span id="line-268">    }</span>
+<span class="source-line-no">269</span><span id="line-269"></span>
+<span class="source-line-no">270</span><span id="line-270">    /**</span>
+<span class="source-line-no">271</span><span id="line-271">     * @param project</span>
+<span class="source-line-no">272</span><span id="line-272">     * the project to set</span>
+<span class="source-line-no">273</span><span id="line-273">     */</span>
+<span class="source-line-no">274</span><span id="line-274">    public void setProject(final MavenProject project) {</span>
+<span class="source-line-no">275</span><span id="line-275">        this.project = project;</span>
+<span class="source-line-no">276</span><span id="line-276">    }</span>
+<span class="source-line-no">277</span><span id="line-277"></span>
+<span class="source-line-no">278</span><span id="line-278">    /**</span>
+<span class="source-line-no">279</span><span id="line-279">     * @return the settings</span>
+<span class="source-line-no">280</span><span id="line-280">     */</span>
+<span class="source-line-no">281</span><span id="line-281">    public Settings getSettings() {</span>
+<span class="source-line-no">282</span><span id="line-282">        return settings;</span>
+<span class="source-line-no">283</span><span id="line-283">    }</span>
+<span class="source-line-no">284</span><span id="line-284"></span>
+<span class="source-line-no">285</span><span id="line-285">    /**</span>
+<span class="source-line-no">286</span><span id="line-286">     * @param settings</span>
+<span class="source-line-no">287</span><span id="line-287">     * the settings to set</span>
+<span class="source-line-no">288</span><span id="line-288">     */</span>
+<span class="source-line-no">289</span><span id="line-289">    public void setSettings(final Settings settings) {</span>
+<span class="source-line-no">290</span><span id="line-290">        this.settings = settings;</span>
+<span class="source-line-no">291</span><span id="line-291">    }</span>
+<span class="source-line-no">292</span><span id="line-292">    </span>
+<span class="source-line-no">293</span><span id="line-293">}</span>
 
 
 

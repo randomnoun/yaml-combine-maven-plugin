@@ -64,7 +64,7 @@
 <span class="source-line-no">051</span><span id="line-51">        private Yaml newYaml() {</span>
 <span class="source-line-no">052</span><span id="line-52">                DumperOptions options = new DumperOptions();</span>
 <span class="source-line-no">053</span><span id="line-53">        CustomPropertyUtils customPropertyUtils = new CustomPropertyUtils();</span>
-<span class="source-line-no">054</span><span id="line-54">        Representer customRepresenter = new Representer();</span>
+<span class="source-line-no">054</span><span id="line-54">        Representer customRepresenter = new Representer(options);</span>
 <span class="source-line-no">055</span><span id="line-55">        customRepresenter.setPropertyUtils(customPropertyUtils);</span>
 <span class="source-line-no">056</span><span id="line-56">        Yaml yaml = new Yaml(customRepresenter, options);</span>
 <span class="source-line-no">057</span><span id="line-57">        return yaml;</span>
