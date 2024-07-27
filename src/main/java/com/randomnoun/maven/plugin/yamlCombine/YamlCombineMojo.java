@@ -9,20 +9,21 @@ import java.util.List;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.codehaus.plexus.logging.Logger;
-import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.project.MavenProjectHelper;
 import org.apache.maven.settings.Settings;
-import org.apache.maven.shared.model.fileset.FileSet;
-import org.apache.maven.shared.utils.io.DirectoryScanner;
-import org.apache.maven.shared.utils.io.FileUtils;
 import org.apache.maven.shared.filtering.DefaultMavenFileFilter;
+import org.apache.maven.shared.filtering.FilterWrapper;
 import org.apache.maven.shared.filtering.MavenFilteringException;
 import org.apache.maven.shared.filtering.MavenResourcesExecution;
+import org.apache.maven.shared.model.fileset.FileSet;
+import org.apache.maven.shared.utils.io.DirectoryScanner;
+import org.codehaus.plexus.logging.Logger;
+import org.codehaus.plexus.logging.console.ConsoleLoggerManager;
+import org.sonatype.plexus.build.incremental.BuildContext;
 
 /**
  * Maven goal which combines a bunch of yaml files into a big yaml file.
@@ -82,6 +83,10 @@ public class YamlCombineMojo
     @Parameter( defaultValue = "${session}", readonly = true, required = true )
     private MavenSession session;
 
+    
+    /** @component */
+    private BuildContext buildContext;
+    
     
     /**
      * @parameter property="settings"
@@ -176,6 +181,7 @@ public class YamlCombineMojo
 				throw new MojoExecutionException("Unable to delete existing file " + destFile);
 			}
 		}
+		
 
 		DirectoryScanner scanner = scan(fileset);
 		String[] files = scanner.getIncludedFiles(); // also performs exclusion. So way to go, maven.
@@ -205,11 +211,11 @@ public class YamlCombineMojo
 		        ConsoleLoggerManager clm = new ConsoleLoggerManager();
 		        Logger logger = clm.getLoggerForComponent("YamlCombineMojo");
 		        
-		        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter();
-		        dmff.enableLogging(logger); // filter will NPE if this isn't set
+		        DefaultMavenFileFilter dmff = new DefaultMavenFileFilter(buildContext);
+		        // dmff.enableLogging(logger); // filter will NPE if this isn't set
 		        getLog().info("logger is " + logger);
 				try {
-					List<FileUtils.FilterWrapper> filterWrappers = dmff.getDefaultFilterWrappers( mre );
+					List<FilterWrapper> filterWrappers = dmff.getDefaultFilterWrappers( mre );
 					sc.setFilterWrappers(filterWrappers);
 				} catch (MavenFilteringException e) {
 					throw new IllegalStateException("Coult not get default filter wrappers", e);

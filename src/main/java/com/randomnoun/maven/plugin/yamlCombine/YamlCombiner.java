@@ -21,7 +21,7 @@ import java.util.Set;
 import java.util.function.IntConsumer;
 
 import org.apache.maven.plugin.logging.Log;
-import org.apache.maven.shared.utils.io.FileUtils.FilterWrapper;
+import org.apache.maven.shared.filtering.FilterWrapper;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.representer.Representer;
@@ -36,8 +36,8 @@ public class YamlCombiner {
 		return filterWrappers;
 	}
 
-	public void setFilterWrappers(List<FilterWrapper> filterWrappers) {
-		this.filterWrappers = filterWrappers;
+	public void setFilterWrappers(List<FilterWrapper> filterWrappers2) {
+		this.filterWrappers = filterWrappers2;
 	}
 
 	File relativeDir;
