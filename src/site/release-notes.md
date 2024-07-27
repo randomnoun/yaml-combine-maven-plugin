@@ -1,3 +1,3 @@
 ## Updates
 
-* update dependencies; fix verbose flag (nathanaelweber: #2)
+* update maven dependencies
