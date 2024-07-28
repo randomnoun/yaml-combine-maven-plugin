@@ -8,7 +8,7 @@
 
 	<head>
 		<meta charset="UTF-8" />
-		<title>Example 4 - Multiple inputs example | randomnoun yaml-combine-maven-plugin</title>
+		<title>Project Dependency Management | randomnoun yaml-combine-maven-plugin</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content="" />
 		<meta http-equiv="content-language" content="en" />
@@ -32,7 +32,7 @@
 		
 	</head>
 
-	<body class="page-example-4 project-yaml-combine-maven-plugin" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
+	<body class="page-dependency-management project-yaml-combine-maven-plugin" data-spy="scroll" data-offset="60" data-target="#toc-scroll-target">
 
 		<div class="navbar navbar-fixed-top">
 			<div class="navbar-inner">
@@ -85,130 +85,59 @@
 				<li class="divider">|</li>
 				<li><a href="./" title="yaml-combine-maven-plugin">yaml-combine-maven-plugin </a></li>
 				<li class="divider">/</li>
-				<li>Example 4 - Multiple inputs example</li>
+				<li>Project Dependency Management</li>
 			</ul>
+		</div>
+		<hr class="toc-separator" />
+		<div id="toc-bar" class="navbar">
+			<div class="navbar-inner">
+				<div id="toc-scroll-target" class="container">
+					<ul id="toc" class="nav">
+						<li class="toplevel"><a href="#Project_Dependency_Management" title="Project Dependency Management">Project Dependency Management</a></li>
+						<li class="toplevel"><a href="#compile" title="compile">compile</a></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</header>
 
 	<div class="main-body">
-	<div class="row columns columns1">
+	<div class="row">
 		<div class="span12">
-			<h2 id="Example_4_-_Multiple_inputs_example">Example 4 - Multiple inputs example</h2>
-<p>This example shows how multiple input files can be merged together to form a single output file, without requiring the use of <tt>$xref</tt> references </p>
+			<div class="body-content">
+<div class="section"> 
+ <div class="page-header">
+  <h2 id="Project_Dependency_Management">Project Dependency Management</h2>
+ </div> 
+ <a name="Project_Dependency_Management"></a> 
+ <div class="section"> 
+  <h3 id="compile">compile</h3> 
+  <a name="compile"></a> 
+  <p>The following is a list of compile dependencies in the DependencyManagement of this project. These dependencies can be included in the submodules to compile and run the submodule:</p> 
+  <table border="0" class="bodyTable table table-striped table-hover"> 
+   <thead> 
+    <tr class="a"> 
+     <th>GroupId</th> 
+     <th>ArtifactId</th> 
+     <th>Version</th> 
+     <th>Type</th> 
+     <th>License</th> 
+    </tr> 
+   </thead> 
+   <tbody> 
+    <tr class="b"> 
+     <td>org.iq80.snappy</td> 
+     <td><a class="externalLink" href="http://github.com/dain/snappy">snappy</a></td> 
+     <td>0.5</td> 
+     <td>jar</td> 
+     <td><a class="externalLink" href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a></td> 
+    </tr> 
+   </tbody> 
+  </table> 
+ </div> 
+</div>
+			</div>
 		</div>
-	</div>
-	<div class="row">
-	</div>
-	<div class="row columns columns2">
-		<div class="span6">
-			<h3 id="Input">Input</h3>
-<p><b>input.yaml</b> </p>
-<div> 
- <pre>
-paths:
-  /thing:
-    get:
-      operationId: getThings
-      description: get all the things
-      parameters:
-      responses:
-        200:
-        schema:
-          type: object
-          title: getThingsOKResponse
-          properties:
-            status:
-              description: OK
-              type: string
-            thing:
-              type: array
-              items:
-                $ref: 'objects.yaml#/definitions/ThingObject'
-</pre> 
-</div>
-<p><b>input-2.yaml</b> </p>
-<div> 
- <pre>
-paths:
-  /thing:
-    post:
-      operationId: addThing
-      description: |
-        Adds a new `Thing`.
-        * Things must be uniquely identifiable by `name`.
-        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
-      parameters:
-        thing:
-          $ref: 'objects.yaml#/definitions/ThingObject'
-      responses:
-        200:
-        schema:
-          type: object
-          title: getThingsOKResponse
-          properties:
-            status:
-              description: OK
-              type: string
-            thing:
-              type: array
-              items:
-                $ref: 'objects.yaml#/definitions/ThingObject'
-</pre> 
-</div>
-<div class="section">   
-</div>
-		</div>
-		<div class="span6">
-			<h3 id="Output">Output</h3>
-<div> 
- <pre>
----
-paths:
-  /thing:
-    post:
-      operationId: addThing
-      description: |
-        Adds a new `Thing`.
-        * Things must be uniquely identifiable by `name`.
-        * The `id` of the thing must be empty; the newly created `id` will be returned in the response object.
-      responses:
-        200: null
-        schema:
-          type: object
-          title: getThingsOKResponse
-          properties:
-            thing:
-              type: array
-              items:
-                $ref: objects.yaml#/definitions/ThingObject
-            status:
-              type: string
-              description: OK
-      parameters:
-        thing:
-          $ref: objects.yaml#/definitions/ThingObject
-    get:
-      operationId: getThings
-      description: get all the things
-      responses:
-        200: null
-        schema:
-          type: object
-          title: getThingsOKResponse
-          properties:
-            thing:
-              type: array
-              items:
-                $ref: objects.yaml#/definitions/ThingObject
-            status:
-              type: string
-              description: OK
-      parameters: null
-</pre> 
-</div>
-		</div>
-	</div>
-	<div class="row">
 	</div>
 	</div>
 
@@ -265,7 +194,48 @@ paths:
 					<ul class="nav nav-list">
 						<li class="nav-header">Maven documentation</li>
 						<li>
-							<a href="project-info.html" title="Project Information">Project Information <i class="icon-chevron-right"></i></a>
+							<a href="project-info.html" title="Project Information">Project Information <i class="icon-chevron-down"></i></a>
+							<ul class="nav nav-list">
+						<li>
+							<a href="integration.html" title="CI Management">CI Management </a>
+						</li>
+						<li>
+							<a href="dependencies.html" title="Dependencies">Dependencies </a>
+						</li>
+						<li>
+							<a href="dependency-convergence.html" title="Dependency Convergence">Dependency Convergence </a>
+						</li>
+						<li>
+							<a href="dependency-info.html" title="Dependency Information">Dependency Information </a>
+						</li>
+						<li class="active">
+							<a href="#" title="Dependency Management">Dependency Management </a>
+						</li>
+						<li>
+							<a href="distribution-management.html" title="Distribution Management">Distribution Management </a>
+						</li>
+						<li>
+							<a href="index.html" title="About">About </a>
+						</li>
+						<li>
+							<a href="license.html" title="Licenses">Licenses </a>
+						</li>
+						<li>
+							<a href="plugin-management.html" title="Plugin Management">Plugin Management </a>
+						</li>
+						<li>
+							<a href="plugins.html" title="Plugins">Plugins </a>
+						</li>
+						<li>
+							<a href="team-list.html" title="Team">Team </a>
+						</li>
+						<li>
+							<a href="source-repository.html" title="Source Code Management">Source Code Management </a>
+						</li>
+						<li>
+							<a href="project-summary.html" title="Summary">Summary </a>
+						</li>
+							</ul>
 						</li>
 						<li>
 							<a href="project-reports.html" title="Project Reports">Project Reports <i class="icon-chevron-right"></i></a>
