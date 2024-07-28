@@ -2,6 +2,12 @@
 
 ## Updates
 
+* more maven dependencies
+
+# 2.0.5
+
+## Updates
+
 * update maven dependencies
 
 # 2.0.4
