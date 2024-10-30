@@ -1,0 +1,4 @@
+definitions:
+  Object1:
+    description: other strange chàrs
+    type: string
