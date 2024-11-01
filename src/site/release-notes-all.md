@@ -1,4 +1,10 @@
-# 2.0.5
+# 2.0.7
+
+## Updates
+
+* added 'fileSetEncoding' and 'outputFileEncoding' configuration parameters (gcornacchia: #4)
+
+# 2.0.6
 
 ## Updates
 

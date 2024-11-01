@@ -1,3 +1,3 @@
 ## Updates
 
-* update maven dependencies
+* added 'fileSetEncoding' and 'outputFileEncoding' configuration parameters (gcornacchia: #4)
