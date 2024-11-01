@@ -1,8 +1,15 @@
 package com.randomnoun.maven.plugin.yamlCombine;
 
-import java.io.*;
+import static java.nio.charset.StandardCharsets.ISO_8859_1;
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -13,9 +20,6 @@ import org.apache.maven.plugin.logging.SystemStreamLog;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
-import static java.nio.charset.StandardCharsets.ISO_8859_1;
-import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class TestCombine extends  TestCase {
 
