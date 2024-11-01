@@ -1,0 +1,8 @@
+---
+definitions:
+  Object2:
+    description: strangè ù chàrs
+    type: string
+  Object1:
+    description: other strange chàrs
+    type: string

@@ -1,9 +1,8 @@
 package com.randomnoun.maven.plugin.yamlCombine;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
@@ -43,12 +42,20 @@ public class YamlCombineMojo
      */
     @Parameter( property="fileset")
     private FileSet fileset;
+
+	@Parameter( defaultValue = "UTF-8", required = false )
+	private String fileSetEncoding;
     
     /**
      * Directory containing the generated JAR.
      */
     @Parameter( defaultValue = "${project.build.directory}", required = true )
     private File outputDirectory;
+
+
+
+	@Parameter( defaultValue = "UTF-8", required = false )
+	private String outputFileEncoding;
 
     /**
      * Name of the generated JAR.
@@ -154,6 +161,8 @@ public class YamlCombineMojo
 			throw new IllegalArgumentException("Missing finalName");
 		}
 		File destFile = new File(outputDirectory, finalName);
+		Charset outputFileCharset = Charset.forName(outputFileEncoding);
+		Charset inputFileSetCharset = Charset.forName(fileSetEncoding);
 
 		// filesets aren't order-preserving.
 		// which is kind of annoying. could sort the Files just to get some
@@ -221,9 +230,8 @@ public class YamlCombineMojo
 					throw new IllegalStateException("Coult not get default filter wrappers", e);
 				}
 			}
-			
-			PrintWriter w = new PrintWriter(fos);
-			sc.combine(w);
+			PrintWriter w = new PrintWriter(new OutputStreamWriter(fos, outputFileCharset));
+			sc.combine(w,inputFileSetCharset);
 		} catch (IOException ioe) {
 			// trouble at the mill
 			throw new MojoExecutionException("Could not create combined yaml file", ioe); 

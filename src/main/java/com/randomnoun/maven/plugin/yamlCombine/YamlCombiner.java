@@ -9,6 +9,8 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.URLDecoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -58,7 +60,7 @@ public class YamlCombiner {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public void combine(Writer w) throws IOException {
+	public void combine(Writer w, Charset inputFilesetCharset) throws IOException {
 
 		List<String> fileList = new ArrayList<String>(Arrays.asList(files));
 		Collections.sort(fileList);
@@ -68,7 +70,7 @@ public class YamlCombiner {
 		Map mergedObj = null;
 		for (String f : fileList) {
 			InputStream inputStream = new FileInputStream(new File(relativeDir, f));
-			Reader reader = new InputStreamReader(inputStream);
+			Reader reader = new InputStreamReader(inputStream, inputFilesetCharset);
 			if (filterWrappers != null) {
 				for ( FilterWrapper wrapper : filterWrappers ) {
                     reader = wrapper.getReader( reader );
