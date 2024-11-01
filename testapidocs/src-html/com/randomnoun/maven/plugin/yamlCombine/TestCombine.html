@@ -13,129 +13,207 @@
 <div class="source-container">
 <pre><span class="source-line-no">001</span><span id="line-1">package com.randomnoun.maven.plugin.yamlCombine;</span>
 <span class="source-line-no">002</span><span id="line-2"></span>
-<span class="source-line-no">003</span><span id="line-3">import java.io.File;</span>
-<span class="source-line-no">004</span><span id="line-4">import java.io.IOException;</span>
-<span class="source-line-no">005</span><span id="line-5">import java.io.StringWriter;</span>
-<span class="source-line-no">006</span><span id="line-6">import java.nio.file.Files;</span>
-<span class="source-line-no">007</span><span id="line-7">import java.nio.file.Path;</span>
-<span class="source-line-no">008</span><span id="line-8">import java.util.Arrays;</span>
-<span class="source-line-no">009</span><span id="line-9">import java.util.List;</span>
-<span class="source-line-no">010</span><span id="line-10"></span>
-<span class="source-line-no">011</span><span id="line-11">import org.apache.maven.plugin.logging.Log;</span>
-<span class="source-line-no">012</span><span id="line-12">import org.apache.maven.plugin.logging.SystemStreamLog;</span>
-<span class="source-line-no">013</span><span id="line-13"></span>
-<span class="source-line-no">014</span><span id="line-14">import junit.framework.Assert;</span>
-<span class="source-line-no">015</span><span id="line-15">import junit.framework.TestCase;</span>
-<span class="source-line-no">016</span><span id="line-16"></span>
-<span class="source-line-no">017</span><span id="line-17">public class TestCombine extends  TestCase {</span>
-<span class="source-line-no">018</span><span id="line-18"></span>
-<span class="source-line-no">019</span><span id="line-19">        public void setUp() { }</span>
-<span class="source-line-no">020</span><span id="line-20">        </span>
-<span class="source-line-no">021</span><span id="line-21">        // tests that $xrefs are resolved, and that $refs aren't</span>
-<span class="source-line-no">022</span><span id="line-22">        public void test1() throws IOException {</span>
-<span class="source-line-no">023</span><span id="line-23">                Log log = new SystemStreamLog();</span>
-<span class="source-line-no">024</span><span id="line-24"></span>
-<span class="source-line-no">025</span><span id="line-25">                YamlCombiner sc = new YamlCombiner();</span>
-<span class="source-line-no">026</span><span id="line-26">        sc.setRelativeDir(new File("src/test/resources/t1"));</span>
-<span class="source-line-no">027</span><span id="line-27">        sc.setFiles(new String[] { "input.yaml" });</span>
-<span class="source-line-no">028</span><span id="line-28">        sc.setLog(log);</span>
+<span class="source-line-no">003</span><span id="line-3">import static java.nio.charset.StandardCharsets.ISO_8859_1;</span>
+<span class="source-line-no">004</span><span id="line-4">import static java.nio.charset.StandardCharsets.UTF_8;</span>
+<span class="source-line-no">005</span><span id="line-5"></span>
+<span class="source-line-no">006</span><span id="line-6">import java.io.File;</span>
+<span class="source-line-no">007</span><span id="line-7">import java.io.FileOutputStream;</span>
+<span class="source-line-no">008</span><span id="line-8">import java.io.IOException;</span>
+<span class="source-line-no">009</span><span id="line-9">import java.io.OutputStreamWriter;</span>
+<span class="source-line-no">010</span><span id="line-10">import java.io.PrintWriter;</span>
+<span class="source-line-no">011</span><span id="line-11">import java.io.StringWriter;</span>
+<span class="source-line-no">012</span><span id="line-12">import java.nio.charset.Charset;</span>
+<span class="source-line-no">013</span><span id="line-13">import java.nio.file.Files;</span>
+<span class="source-line-no">014</span><span id="line-14">import java.nio.file.Path;</span>
+<span class="source-line-no">015</span><span id="line-15">import java.util.Arrays;</span>
+<span class="source-line-no">016</span><span id="line-16">import java.util.List;</span>
+<span class="source-line-no">017</span><span id="line-17"></span>
+<span class="source-line-no">018</span><span id="line-18">import org.apache.maven.plugin.logging.Log;</span>
+<span class="source-line-no">019</span><span id="line-19">import org.apache.maven.plugin.logging.SystemStreamLog;</span>
+<span class="source-line-no">020</span><span id="line-20"></span>
+<span class="source-line-no">021</span><span id="line-21">import junit.framework.Assert;</span>
+<span class="source-line-no">022</span><span id="line-22">import junit.framework.TestCase;</span>
+<span class="source-line-no">023</span><span id="line-23"></span>
+<span class="source-line-no">024</span><span id="line-24">public class TestCombine extends  TestCase {</span>
+<span class="source-line-no">025</span><span id="line-25"></span>
+<span class="source-line-no">026</span><span id="line-26">    private Charset inputFileSetCharset = UTF_8;</span>
+<span class="source-line-no">027</span><span id="line-27"></span>
+<span class="source-line-no">028</span><span id="line-28">    public void setUp() { }</span>
 <span class="source-line-no">029</span><span id="line-29">        </span>
-<span class="source-line-no">030</span><span id="line-30">                StringWriter w = new StringWriter();</span>
-<span class="source-line-no">031</span><span id="line-31">        sc.combine(w);</span>
-<span class="source-line-no">032</span><span id="line-32"></span>
-<span class="source-line-no">033</span><span id="line-33">        Path expectedPath = new File("src/test/resources/t1/expected-output.yaml").toPath();</span>
-<span class="source-line-no">034</span><span id="line-34">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
-<span class="source-line-no">035</span><span id="line-35">        </span>
-<span class="source-line-no">036</span><span id="line-36">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
-<span class="source-line-no">037</span><span id="line-37">        </span>
-<span class="source-line-no">038</span><span id="line-38">        Assert.assertEquals(expectedLines, lines);</span>
-<span class="source-line-no">039</span><span id="line-39">        }</span>
-<span class="source-line-no">040</span><span id="line-40">        </span>
-<span class="source-line-no">041</span><span id="line-41">        // slightly different xref syntax ( # toggles /-escaping ) </span>
-<span class="source-line-no">042</span><span id="line-42">        // ( same output as t1 )</span>
-<span class="source-line-no">043</span><span id="line-43">        public void test2() throws IOException {</span>
-<span class="source-line-no">044</span><span id="line-44">                Log log = new SystemStreamLog();</span>
-<span class="source-line-no">045</span><span id="line-45"></span>
-<span class="source-line-no">046</span><span id="line-46">                YamlCombiner sc = new YamlCombiner();</span>
-<span class="source-line-no">047</span><span id="line-47">        sc.setRelativeDir(new File("src/test/resources/t2"));</span>
-<span class="source-line-no">048</span><span id="line-48">        sc.setFiles(new String[] { "input.yaml" });</span>
-<span class="source-line-no">049</span><span id="line-49">        sc.setLog(log);</span>
-<span class="source-line-no">050</span><span id="line-50">        </span>
-<span class="source-line-no">051</span><span id="line-51">                StringWriter w = new StringWriter();</span>
-<span class="source-line-no">052</span><span id="line-52">        sc.combine(w);</span>
-<span class="source-line-no">053</span><span id="line-53"></span>
-<span class="source-line-no">054</span><span id="line-54">        Path expectedPath = new File("src/test/resources/t2/expected-output.yaml").toPath();</span>
-<span class="source-line-no">055</span><span id="line-55">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
-<span class="source-line-no">056</span><span id="line-56">        </span>
-<span class="source-line-no">057</span><span id="line-57">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
-<span class="source-line-no">058</span><span id="line-58"></span>
-<span class="source-line-no">059</span><span id="line-59">        Assert.assertEquals(expectedLines, lines);</span>
-<span class="source-line-no">060</span><span id="line-60">        }</span>
-<span class="source-line-no">061</span><span id="line-61">        </span>
-<span class="source-line-no">062</span><span id="line-62">        // override keys in xref object</span>
-<span class="source-line-no">063</span><span id="line-63">        public void test3() throws IOException {</span>
-<span class="source-line-no">064</span><span id="line-64">                Log log = new SystemStreamLog();</span>
-<span class="source-line-no">065</span><span id="line-65"></span>
-<span class="source-line-no">066</span><span id="line-66">                YamlCombiner sc = new YamlCombiner();</span>
-<span class="source-line-no">067</span><span id="line-67">        sc.setRelativeDir(new File("src/test/resources/t3"));</span>
-<span class="source-line-no">068</span><span id="line-68">        sc.setFiles(new String[] { "input.yaml" });</span>
-<span class="source-line-no">069</span><span id="line-69">        // sc.setVerbose(true);</span>
-<span class="source-line-no">070</span><span id="line-70">        sc.setLog(log);</span>
-<span class="source-line-no">071</span><span id="line-71"></span>
-<span class="source-line-no">072</span><span id="line-72">        StringWriter w = new StringWriter();</span>
-<span class="source-line-no">073</span><span id="line-73">        sc.combine(w);</span>
+<span class="source-line-no">030</span><span id="line-30">        // tests that $xrefs are resolved, and that $refs aren't</span>
+<span class="source-line-no">031</span><span id="line-31">        public void test1() throws IOException {</span>
+<span class="source-line-no">032</span><span id="line-32">                Log log = new SystemStreamLog();</span>
+<span class="source-line-no">033</span><span id="line-33"></span>
+<span class="source-line-no">034</span><span id="line-34">                YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">035</span><span id="line-35">        sc.setRelativeDir(new File("src/test/resources/t1"));</span>
+<span class="source-line-no">036</span><span id="line-36">        sc.setFiles(new String[] { "input.yaml" });</span>
+<span class="source-line-no">037</span><span id="line-37">        sc.setLog(log);</span>
+<span class="source-line-no">038</span><span id="line-38">        </span>
+<span class="source-line-no">039</span><span id="line-39">                StringWriter w = new StringWriter();</span>
+<span class="source-line-no">040</span><span id="line-40">        sc.combine(w, inputFileSetCharset);</span>
+<span class="source-line-no">041</span><span id="line-41"></span>
+<span class="source-line-no">042</span><span id="line-42">        Path expectedPath = new File("src/test/resources/t1/expected-output.yaml").toPath();</span>
+<span class="source-line-no">043</span><span id="line-43">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
+<span class="source-line-no">044</span><span id="line-44">        </span>
+<span class="source-line-no">045</span><span id="line-45">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
+<span class="source-line-no">046</span><span id="line-46">        </span>
+<span class="source-line-no">047</span><span id="line-47">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">048</span><span id="line-48">        }</span>
+<span class="source-line-no">049</span><span id="line-49">        </span>
+<span class="source-line-no">050</span><span id="line-50">        // slightly different xref syntax ( # toggles /-escaping ) </span>
+<span class="source-line-no">051</span><span id="line-51">        // ( same output as t1 )</span>
+<span class="source-line-no">052</span><span id="line-52">        public void test2() throws IOException {</span>
+<span class="source-line-no">053</span><span id="line-53">                Log log = new SystemStreamLog();</span>
+<span class="source-line-no">054</span><span id="line-54"></span>
+<span class="source-line-no">055</span><span id="line-55">                YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">056</span><span id="line-56">        sc.setRelativeDir(new File("src/test/resources/t2"));</span>
+<span class="source-line-no">057</span><span id="line-57">        sc.setFiles(new String[] { "input.yaml" });</span>
+<span class="source-line-no">058</span><span id="line-58">        sc.setLog(log);</span>
+<span class="source-line-no">059</span><span id="line-59">        </span>
+<span class="source-line-no">060</span><span id="line-60">                StringWriter w = new StringWriter();</span>
+<span class="source-line-no">061</span><span id="line-61">        sc.combine(w, inputFileSetCharset);</span>
+<span class="source-line-no">062</span><span id="line-62"></span>
+<span class="source-line-no">063</span><span id="line-63">        Path expectedPath = new File("src/test/resources/t2/expected-output.yaml").toPath();</span>
+<span class="source-line-no">064</span><span id="line-64">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
+<span class="source-line-no">065</span><span id="line-65">        </span>
+<span class="source-line-no">066</span><span id="line-66">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
+<span class="source-line-no">067</span><span id="line-67"></span>
+<span class="source-line-no">068</span><span id="line-68">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">069</span><span id="line-69">        }</span>
+<span class="source-line-no">070</span><span id="line-70">        </span>
+<span class="source-line-no">071</span><span id="line-71">        // override keys in xref object</span>
+<span class="source-line-no">072</span><span id="line-72">        public void test3() throws IOException {</span>
+<span class="source-line-no">073</span><span id="line-73">                Log log = new SystemStreamLog();</span>
 <span class="source-line-no">074</span><span id="line-74"></span>
-<span class="source-line-no">075</span><span id="line-75">        Path expectedPath = new File("src/test/resources/t3/expected-output.yaml").toPath();</span>
-<span class="source-line-no">076</span><span id="line-76">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
-<span class="source-line-no">077</span><span id="line-77">        </span>
-<span class="source-line-no">078</span><span id="line-78">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
-<span class="source-line-no">079</span><span id="line-79">        </span>
-<span class="source-line-no">080</span><span id="line-80">        Assert.assertEquals(expectedLines, lines);</span>
-<span class="source-line-no">081</span><span id="line-81">        }</span>
-<span class="source-line-no">082</span><span id="line-82">        </span>
-<span class="source-line-no">083</span><span id="line-83">        // combine inputs from multiple input yamls</span>
-<span class="source-line-no">084</span><span id="line-84">        public void test4() throws IOException {</span>
-<span class="source-line-no">085</span><span id="line-85">                Log log = new SystemStreamLog();</span>
-<span class="source-line-no">086</span><span id="line-86"></span>
-<span class="source-line-no">087</span><span id="line-87">                YamlCombiner sc = new YamlCombiner();</span>
-<span class="source-line-no">088</span><span id="line-88">        sc.setRelativeDir(new File("src/test/resources/t4"));</span>
-<span class="source-line-no">089</span><span id="line-89">        sc.setFiles(new String[] { "input.yaml", "input-2.yaml" });</span>
-<span class="source-line-no">090</span><span id="line-90">        // sc.setVerbose(true);</span>
-<span class="source-line-no">091</span><span id="line-91">        sc.setLog(log);</span>
-<span class="source-line-no">092</span><span id="line-92"></span>
-<span class="source-line-no">093</span><span id="line-93">        StringWriter w = new StringWriter();</span>
-<span class="source-line-no">094</span><span id="line-94">        sc.combine(w);</span>
-<span class="source-line-no">095</span><span id="line-95">        System.out.println(w.toString());</span>
-<span class="source-line-no">096</span><span id="line-96"></span>
-<span class="source-line-no">097</span><span id="line-97">        Path expectedPath = new File("src/test/resources/t4/expected-output.yaml").toPath();</span>
-<span class="source-line-no">098</span><span id="line-98">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
-<span class="source-line-no">099</span><span id="line-99">        </span>
-<span class="source-line-no">100</span><span id="line-100">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
+<span class="source-line-no">075</span><span id="line-75">                YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">076</span><span id="line-76">        sc.setRelativeDir(new File("src/test/resources/t3"));</span>
+<span class="source-line-no">077</span><span id="line-77">        sc.setFiles(new String[] { "input.yaml" });</span>
+<span class="source-line-no">078</span><span id="line-78">        // sc.setVerbose(true);</span>
+<span class="source-line-no">079</span><span id="line-79">        sc.setLog(log);</span>
+<span class="source-line-no">080</span><span id="line-80"></span>
+<span class="source-line-no">081</span><span id="line-81">        StringWriter w = new StringWriter();</span>
+<span class="source-line-no">082</span><span id="line-82">        sc.combine(w, inputFileSetCharset);</span>
+<span class="source-line-no">083</span><span id="line-83"></span>
+<span class="source-line-no">084</span><span id="line-84">        Path expectedPath = new File("src/test/resources/t3/expected-output.yaml").toPath();</span>
+<span class="source-line-no">085</span><span id="line-85">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
+<span class="source-line-no">086</span><span id="line-86">        </span>
+<span class="source-line-no">087</span><span id="line-87">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
+<span class="source-line-no">088</span><span id="line-88">        </span>
+<span class="source-line-no">089</span><span id="line-89">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">090</span><span id="line-90">        }</span>
+<span class="source-line-no">091</span><span id="line-91">        </span>
+<span class="source-line-no">092</span><span id="line-92">        // combine inputs from multiple input yamls</span>
+<span class="source-line-no">093</span><span id="line-93">        public void test4() throws IOException {</span>
+<span class="source-line-no">094</span><span id="line-94">                Log log = new SystemStreamLog();</span>
+<span class="source-line-no">095</span><span id="line-95"></span>
+<span class="source-line-no">096</span><span id="line-96">                YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">097</span><span id="line-97">        sc.setRelativeDir(new File("src/test/resources/t4"));</span>
+<span class="source-line-no">098</span><span id="line-98">        sc.setFiles(new String[] { "input.yaml", "input-2.yaml" });</span>
+<span class="source-line-no">099</span><span id="line-99">        // sc.setVerbose(true);</span>
+<span class="source-line-no">100</span><span id="line-100">        sc.setLog(log);</span>
 <span class="source-line-no">101</span><span id="line-101"></span>
-<span class="source-line-no">102</span><span id="line-102">        Assert.assertEquals(expectedLines, lines);</span>
-<span class="source-line-no">103</span><span id="line-103">        }</span>
-<span class="source-line-no">104</span><span id="line-104"></span>
-<span class="source-line-no">105</span><span id="line-105">    // parse top level $xref to copy whole yaml</span>
-<span class="source-line-no">106</span><span id="line-106">    public void test5() throws IOException {</span>
-<span class="source-line-no">107</span><span id="line-107">        Log log = new SystemStreamLog();</span>
-<span class="source-line-no">108</span><span id="line-108"></span>
-<span class="source-line-no">109</span><span id="line-109">        YamlCombiner sc = new YamlCombiner();</span>
-<span class="source-line-no">110</span><span id="line-110">        sc.setRelativeDir(new File("src/test/resources/t5"));</span>
-<span class="source-line-no">111</span><span id="line-111">        sc.setFiles(new String[] { "input.yaml" });</span>
-<span class="source-line-no">112</span><span id="line-112">        sc.setLog(log);</span>
+<span class="source-line-no">102</span><span id="line-102">        StringWriter w = new StringWriter();</span>
+<span class="source-line-no">103</span><span id="line-103">        sc.combine(w, inputFileSetCharset);</span>
+<span class="source-line-no">104</span><span id="line-104">        System.out.println(w.toString());</span>
+<span class="source-line-no">105</span><span id="line-105"></span>
+<span class="source-line-no">106</span><span id="line-106">        Path expectedPath = new File("src/test/resources/t4/expected-output.yaml").toPath();</span>
+<span class="source-line-no">107</span><span id="line-107">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
+<span class="source-line-no">108</span><span id="line-108">        </span>
+<span class="source-line-no">109</span><span id="line-109">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
+<span class="source-line-no">110</span><span id="line-110"></span>
+<span class="source-line-no">111</span><span id="line-111">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">112</span><span id="line-112">        }</span>
 <span class="source-line-no">113</span><span id="line-113"></span>
-<span class="source-line-no">114</span><span id="line-114">        StringWriter w = new StringWriter();</span>
-<span class="source-line-no">115</span><span id="line-115">        sc.combine(w);</span>
-<span class="source-line-no">116</span><span id="line-116"></span>
-<span class="source-line-no">117</span><span id="line-117">        Path expectedPath = new File("src/test/resources/t5/expected-output.yaml").toPath();</span>
-<span class="source-line-no">118</span><span id="line-118">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
-<span class="source-line-no">119</span><span id="line-119"></span>
-<span class="source-line-no">120</span><span id="line-120">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
-<span class="source-line-no">121</span><span id="line-121"></span>
-<span class="source-line-no">122</span><span id="line-122">        Assert.assertEquals(expectedLines, lines);</span>
-<span class="source-line-no">123</span><span id="line-123">    }</span>
-<span class="source-line-no">124</span><span id="line-124">        </span>
-<span class="source-line-no">125</span><span id="line-125">}</span>
+<span class="source-line-no">114</span><span id="line-114">    // parse top level $xref to copy whole yaml</span>
+<span class="source-line-no">115</span><span id="line-115">    public void test5() throws IOException {</span>
+<span class="source-line-no">116</span><span id="line-116">        Log log = new SystemStreamLog();</span>
+<span class="source-line-no">117</span><span id="line-117"></span>
+<span class="source-line-no">118</span><span id="line-118">        YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">119</span><span id="line-119">        sc.setRelativeDir(new File("src/test/resources/t5"));</span>
+<span class="source-line-no">120</span><span id="line-120">        sc.setFiles(new String[] { "input.yaml" });</span>
+<span class="source-line-no">121</span><span id="line-121">        sc.setLog(log);</span>
+<span class="source-line-no">122</span><span id="line-122"></span>
+<span class="source-line-no">123</span><span id="line-123">        StringWriter w = new StringWriter();</span>
+<span class="source-line-no">124</span><span id="line-124">        sc.combine(w, inputFileSetCharset);</span>
+<span class="source-line-no">125</span><span id="line-125"></span>
+<span class="source-line-no">126</span><span id="line-126">        Path expectedPath = new File("src/test/resources/t5/expected-output.yaml").toPath();</span>
+<span class="source-line-no">127</span><span id="line-127">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath);</span>
+<span class="source-line-no">128</span><span id="line-128"></span>
+<span class="source-line-no">129</span><span id="line-129">        List&lt;String&gt; lines = Arrays.asList(w.toString().split("\n"));</span>
+<span class="source-line-no">130</span><span id="line-130"></span>
+<span class="source-line-no">131</span><span id="line-131">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">132</span><span id="line-132">    }</span>
+<span class="source-line-no">133</span><span id="line-133"></span>
+<span class="source-line-no">134</span><span id="line-134">    public void test6() throws IOException {</span>
+<span class="source-line-no">135</span><span id="line-135">        Log log = new SystemStreamLog();</span>
+<span class="source-line-no">136</span><span id="line-136"></span>
+<span class="source-line-no">137</span><span id="line-137">        YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">138</span><span id="line-138">        sc.setRelativeDir(new File("src/test/resources/t6"));</span>
+<span class="source-line-no">139</span><span id="line-139">        sc.setFiles(new String[] { "input.yaml", "input-2.yaml"  });</span>
+<span class="source-line-no">140</span><span id="line-140">        sc.setLog(log);</span>
+<span class="source-line-no">141</span><span id="line-141">        FileOutputStream fos = new FileOutputStream("target/t6.yaml");</span>
+<span class="source-line-no">142</span><span id="line-142">        PrintWriter w = new PrintWriter(new OutputStreamWriter(fos, UTF_8));</span>
+<span class="source-line-no">143</span><span id="line-143">        sc.combine(w, inputFileSetCharset);</span>
+<span class="source-line-no">144</span><span id="line-144"></span>
+<span class="source-line-no">145</span><span id="line-145">        Path expectedPath = new File("src/test/resources/t6/expected-output.yaml").toPath();</span>
+<span class="source-line-no">146</span><span id="line-146"></span>
+<span class="source-line-no">147</span><span id="line-147">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath,UTF_8);</span>
+<span class="source-line-no">148</span><span id="line-148"></span>
+<span class="source-line-no">149</span><span id="line-149">        Path actualPath = new File("target/t6.yaml").toPath();</span>
+<span class="source-line-no">150</span><span id="line-150">        List&lt;String&gt; lines = Files.readAllLines(actualPath);</span>
+<span class="source-line-no">151</span><span id="line-151">        for (int i = 0; i &lt; expectedLines.size(); i++) {</span>
+<span class="source-line-no">152</span><span id="line-152">            Assert.assertEquals(expectedLines.get(i),lines.get(i));</span>
+<span class="source-line-no">153</span><span id="line-153">        }</span>
+<span class="source-line-no">154</span><span id="line-154">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">155</span><span id="line-155">    }</span>
+<span class="source-line-no">156</span><span id="line-156"></span>
+<span class="source-line-no">157</span><span id="line-157">    public void test7() throws IOException {</span>
+<span class="source-line-no">158</span><span id="line-158">        Log log = new SystemStreamLog();</span>
+<span class="source-line-no">159</span><span id="line-159"></span>
+<span class="source-line-no">160</span><span id="line-160">        YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">161</span><span id="line-161">        sc.setRelativeDir(new File("src/test/resources/t7"));</span>
+<span class="source-line-no">162</span><span id="line-162">        sc.setFiles(new String[] { "input.yaml", "input-2.yaml"  });</span>
+<span class="source-line-no">163</span><span id="line-163">        sc.setLog(log);</span>
+<span class="source-line-no">164</span><span id="line-164">        FileOutputStream fos = new FileOutputStream("target/t7.yaml");</span>
+<span class="source-line-no">165</span><span id="line-165">        PrintWriter w = new PrintWriter(new OutputStreamWriter(fos, ISO_8859_1));</span>
+<span class="source-line-no">166</span><span id="line-166">        sc.combine(w, ISO_8859_1);</span>
+<span class="source-line-no">167</span><span id="line-167"></span>
+<span class="source-line-no">168</span><span id="line-168">        Path expectedPath = new File("src/test/resources/t7/expected-output.yaml").toPath();</span>
+<span class="source-line-no">169</span><span id="line-169"></span>
+<span class="source-line-no">170</span><span id="line-170">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath,ISO_8859_1);</span>
+<span class="source-line-no">171</span><span id="line-171"></span>
+<span class="source-line-no">172</span><span id="line-172">        Path actualPath = new File("target/t7.yaml").toPath();</span>
+<span class="source-line-no">173</span><span id="line-173">        List&lt;String&gt; lines = Files.readAllLines(actualPath,ISO_8859_1);</span>
+<span class="source-line-no">174</span><span id="line-174">        for (int i = 0; i &lt; expectedLines.size(); i++) {</span>
+<span class="source-line-no">175</span><span id="line-175">            Assert.assertEquals(expectedLines.get(i),lines.get(i));</span>
+<span class="source-line-no">176</span><span id="line-176">        }</span>
+<span class="source-line-no">177</span><span id="line-177">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">178</span><span id="line-178">    }</span>
+<span class="source-line-no">179</span><span id="line-179"></span>
+<span class="source-line-no">180</span><span id="line-180">    public void test8() throws IOException {</span>
+<span class="source-line-no">181</span><span id="line-181">        Log log = new SystemStreamLog();</span>
+<span class="source-line-no">182</span><span id="line-182"></span>
+<span class="source-line-no">183</span><span id="line-183">        YamlCombiner sc = new YamlCombiner();</span>
+<span class="source-line-no">184</span><span id="line-184">        sc.setRelativeDir(new File("src/test/resources/t8"));</span>
+<span class="source-line-no">185</span><span id="line-185">        sc.setFiles(new String[] { "input.yaml", "input-2.yaml"  });</span>
+<span class="source-line-no">186</span><span id="line-186">        sc.setLog(log);</span>
+<span class="source-line-no">187</span><span id="line-187">        FileOutputStream fos = new FileOutputStream("target/t8.yaml");</span>
+<span class="source-line-no">188</span><span id="line-188">        PrintWriter w = new PrintWriter(new OutputStreamWriter(fos, UTF_8));</span>
+<span class="source-line-no">189</span><span id="line-189">        sc.combine(w, ISO_8859_1);</span>
+<span class="source-line-no">190</span><span id="line-190"></span>
+<span class="source-line-no">191</span><span id="line-191">        Path expectedPath = new File("src/test/resources/t8/expected-output.yaml").toPath();</span>
+<span class="source-line-no">192</span><span id="line-192"></span>
+<span class="source-line-no">193</span><span id="line-193">        List&lt;String&gt; expectedLines = Files.readAllLines(expectedPath,UTF_8);</span>
+<span class="source-line-no">194</span><span id="line-194"></span>
+<span class="source-line-no">195</span><span id="line-195">        Path actualPath = new File("target/t8.yaml").toPath();</span>
+<span class="source-line-no">196</span><span id="line-196">        List&lt;String&gt; lines = Files.readAllLines(actualPath,UTF_8);</span>
+<span class="source-line-no">197</span><span id="line-197">        for (int i = 0; i &lt; expectedLines.size(); i++) {</span>
+<span class="source-line-no">198</span><span id="line-198">            Assert.assertEquals(expectedLines.get(i),lines.get(i));</span>
+<span class="source-line-no">199</span><span id="line-199">        }</span>
+<span class="source-line-no">200</span><span id="line-200">        Assert.assertEquals(expectedLines, lines);</span>
+<span class="source-line-no">201</span><span id="line-201">    }</span>
+<span class="source-line-no">202</span><span id="line-202">        </span>
+<span class="source-line-no">203</span><span id="line-203">}</span>
 
 
 

@@ -6,23 +6,23 @@
 -source
 '8'
 -sourcepath
-'C:/Users/knoxg/workspace-2024-03-randomnoun/git/yaml-combine-maven-plugin/target/checkout/src/main/java'
+'C:/Users/knoxg/workspace-2024-09-randomnoun/git/yaml-combine-maven-plugin/target/checkout/src/main/java'
 -author
 -bottom
 'Copyright &#169; 2021&#x2013;2024 <a href="http://www.randomnoun.com">randomnoun</a>. All rights reserved.'
 -charset
 'UTF-8'
 -d
-'C:/Users/knoxg/workspace-2024-03-randomnoun/git/yaml-combine-maven-plugin/target/checkout/target/site/apidocs'
+'C:/Users/knoxg/workspace-2024-09-randomnoun/git/yaml-combine-maven-plugin/target/checkout/target/site/apidocs'
 -docencoding
 'UTF-8'
 -docfilessubdirs
 -doctitle
-'YAML combiner maven plugin 2.0.6 API'
+'YAML combiner maven plugin 2.0.8 API'
 -linkoffline
-'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/knoxg/workspace-2024-03-randomnoun/git/yaml-combine-maven-plugin/target/checkout/target/javadoc-bundle-options'
+'https://docs.oracle.com/javase/8/docs/api' 'C:/Users/knoxg/workspace-2024-09-randomnoun/git/yaml-combine-maven-plugin/target/checkout/target/javadoc-bundle-options'
 -linksource
 -use
 -version
 -windowtitle
-'YAML combiner maven plugin 2.0.6 API'
+'YAML combiner maven plugin 2.0.8 API'
