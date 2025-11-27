@@ -63,7 +63,7 @@ public class YamlCombineMojo
     /**
      * Name of the generated JAR.
      */
-    @Parameter( defaultValue = "${project.build.finalName}", readonly = true )
+    @Parameter( defaultValue = "${project.build.finalName}", required = true )
     private String finalName;
 
     /**
