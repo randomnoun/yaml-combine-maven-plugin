@@ -1,3 +1,3 @@
 ## Updates
 
-* added 'fileSetEncoding' and 'outputFileEncoding' configuration parameters (gcornacchia: #4)
+* 'finalName' parameter is now required, not readonly (Nick-VdP: #5)

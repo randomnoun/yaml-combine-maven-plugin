@@ -1,3 +1,9 @@
+# 2.0.9
+
+## Updates
+
+* 'finalName' parameter is now required, not readonly (Nick-VdP: #5)
+
 # 2.0.7
 
 ## Updates
