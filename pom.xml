@@ -137,10 +137,6 @@
       <tag>yaml-combine-maven-plugin-2.0.5</tag>
   </scm>
   
-	<ciManagement>
-		<system>Bamboo</system>
-		<url>http://bamboo.dev.randomnoun/browse/RANDOMNOUN-YAMLCOMBINEMAVENPLUGIN</url>
-	</ciManagement>
 	<licenses>
 		<license>
 			<name>Simplified BSD License</name>
